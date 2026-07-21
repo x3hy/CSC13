@@ -1,0 +1,22 @@
+Include feedback in each commit (if applicable).
+Feedback should state the name of the person giving feedback, the timestamp of their feedback and contact information of that user.
+EG:
+12:30 21/07 John Doe (jd@gmail.com) said: this project has such high standards for commitment messages!
+
+---
+
+Testing and Trialing. Testing should answer the following: What are you testing, How are you testing, What do you expect to happen, What happened, How did you resolve this issue (if applicable). Note that evidence may be required for this. The best way for this would be to include a screenshot of the front-end and back-end before and after the test and fix.
+
+Trialing should be in a similar format. Ensure that the following is answered: Who was involved, what was being trialed, what was the method of trialing, feedback/results, problems identified, changes made. This trialing factor should be included as a new commit. This means that you only need to include the evidence after as a screenshot or otherwise a simple git log will suffice.
+
+---
+
+Along with testing and trialing you may be required to list any changes or improvements made in this commit. Properly state the name of the current sprint in the commit heading, along with a brief description of the contents of the commit.
+
+Be sure to include a small description (a paragraph give or take) about what changed/improved based on testing and feedback. Include another paragraph on how these changes/improvements changed the functionality of the outcome.
+
+Finally also include a future changes list that shows any issues changes or improvements that will need addressing in the next sprint/commit.
+
+---
+
+The last section should be a reflection on the commit and the sprint as a whole, you should aim to include descriptions of what went well, what challenges you faced and what you may do differently in the next sprint.
