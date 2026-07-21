@@ -1,0 +1,51 @@
+                                        GANTT CHART
+Sprint 1 |    |------|
+Sprint 2 |           |-------|
+Sprint 3 |                   |---|               |-------|
+Sprint 4 |                                               |-------|
+Sprint 5 |                                                       |-------|
+Sprint 6 |                                                               |---|
+Progress |                   # 25th of June
+         +-------+-------+-------+-------+-------+-------+-------+-------+-------
+          week 8  week 9  week 10                 week 1  week 2  week 3  week 4
+          1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567
+              |                   |-------------|                             |
+              +Start time         +Holidays                                   +Deadline
+              12 Jun              29 Jun - 12 Jul                             8 Aug
+
+
+Sprint 1: Wireframing & Design
+Sprint 2: Prototyping & Feedback on designs
+	- Dropdown menu on navbar
+	- 
+
+Sprint 3: Intergration and Final feedback
+	- Responsive design layouts
+	- Images design.
+
+Sprint 4: Development / Testing
+Sprint 5: Documentation Write up.
+Sprint 6: Final Development / Final Testing
+
+on layout_wireframe.png:
+dropdown could be bigger, accessability. [DONE}
+buttons could be bigger. [DONE]
+fix pixel gaps [DONE]
+
+21/07/26
+KANBAN BOARD:
+
+	TODO:
+	
+	IN PROGRESS:
+	intergrate prototypes into frontend
+	
+	TESTING:
+	
+	DONE:
+	design high-fidelity versions of the wireframes
+	layout designs
+	component designs
+	prototyping the prior designs
+	wireframes
+	
