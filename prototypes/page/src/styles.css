@@ -199,7 +199,7 @@ b {filter: url(#distort)}
 
 
 /* Mobile styles */
-@media (orientation: portrait){
+@media (max-width: 800px) or (orientation: portrait) {
 	:root {
 		--gap-size-huge: 0px;
 		--border-radius-large: 0px;
@@ -216,8 +216,6 @@ b {filter: url(#distort)}
 		margin: 0px;
 		width:100%;
 	}
-
-	/* dropdown menu */
 	.nav-button {
 		position: relative;
 		display: inline-block;
@@ -230,33 +228,36 @@ b {filter: url(#distort)}
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
-	.	svg {
+
+		svg {
 			width: 24px;
 			height: 24px;
 		}
 	}
 	
-	
+	/* Implemented dropdown menu */
 	.dropdown-buttons {
 		position: absolute;
-		top: calc(100% + 8px);
+		top: calc(100% + var(--gap-size-norm));
 		right: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
-		padding: 10px;
+		gap: var(--gap-size-norm);
+		padding: var(--gap-size-small);
 
 		opacity: 0;
 		visibility: hidden;
 		transform: translateY(-10px);
 		transition: all .2s ease;
 		z-index: 1000;
+
+		/* this dropdown has perfect sizing but these make it conform for mobile :/ */
+		width: 100%;
 		
 		/* Dropdown menu styles: */
 		background: var(--background);
 		border: var(--border-width) solid var(--background-accent);
-		border-radius: var(--border-radius-large);
-		
+		border-radius: var(--border-radius);
 	}
 	
 	/* When to show the dropdown */
