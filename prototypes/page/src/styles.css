@@ -4,7 +4,7 @@
 	--background: #1c041e;
 	--background-accent: rgba(128, 0, 255, 0.1);
 	--foreground-accent: #CCCCFF;
-	--background-surface: rgba(255, 255, 255, 0.1);
+	--background-surface: rgba(40, 0, 40, 0.7);
 
 	--gap-size-small: 4px;
 	--gap-size-norm: 10px;
@@ -51,8 +51,8 @@ body {
 
 	position:sticky;
 
-	margin-left: var(--gap-size-huge);
-	width: var(--body-inner-width);
+	margin-left: calc(var(--gap-size-huge) + var(--gap-size-large));
+	width: calc(var(--body-inner-width) - (var(--gap-size-large)*2));
 	border-radius: var(--border-radius-large);
 	top: var(--border-radius-large);
 
@@ -60,6 +60,7 @@ body {
 	backdrop-filter: blur(var(--blur-amount));
 	-webkit-backdrop-filter: blur(var(--blur-amount));
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	border: solid var(--border-width)  var(--background-surface);
 
 	z-index:100000;
 	overflow:hidden;
@@ -76,13 +77,12 @@ body {
 
 button {
 	outline:none;
-	padding: var(--gap-size-small);
-	background: var(--background-surface);
+	border:none;
+	background:transparent;
+	padding: var(--gap-size-small) var(--gap-size-norm);
 	color:var(--foreground);
-	border-radius: var(--border-radius);
 	font-family: var(--font-family);
 	font-size: 1em;
-	border:none;
 	border-bottom: solid var(--border-width) var(--foreground-accent);
 	color: var(--foreground-accent);
 	transition: all 0.2s ease;
@@ -100,8 +100,8 @@ button {
 }
 
 button.alt {
+	border-radius: var(--border-radius);
 	background: var(--foreground-accent);
-	border: solid var(--border-width) transparent;
 	color: var(--background);
 }
 
@@ -133,7 +133,6 @@ section.page {
 		filter: url(#dither);
 		background: var(--background-accent);
 	}
-
 }
 
 footer {
@@ -193,8 +192,16 @@ b {filter: url(#distort)}
 	&::after {
 		top: 0;
 		right:0;
-		content: "";
+		content: "Scroll Down";
+		display:flex;
+		align-items:end;
+		justify-content:center;
+		font-weight: bold;
+		color: var(--background);
+		padding: var(--gap-size-norm);
+
 		position: absolute;
+		box-sizing:border-box;
 		width:100%;
 		height:100%;
 		background:linear-gradient(var(--background), transparent);
