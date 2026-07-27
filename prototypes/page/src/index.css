@@ -1,8 +1,8 @@
 @import "styles.css";
+
 .page {
 	width:100%;
 	display:flex;
-	padding: 0 var(--gap-size-huge);
 	box-sizing:border-box;
 	height:fit-content;
 
@@ -18,9 +18,9 @@
 
 /* Image styles from hero page */
 .header-img {
-	margin-top: calc(var(--nav-height) + var(--gap-size-small));
-	width: var(--body-inner-width);
-	margin-left: var(--gap-size-huge);
+	margin-top: var(--gap-size-norm);
+	width:100%;
+	margin-left: calc(var(--gap-size-huge)/2)
 	position:relative;
 	overflow:hidden;
 
@@ -30,8 +30,10 @@
 	&::after {
 		content: "Source: Igor Aronov";
 		font-style: italic;
+		text-align: center;
 		padding: var(--gap-size-norm);
 		box-sizing: border-box;
+		pointer-events: none;
 		
 		top: 0;
 		right:0;
@@ -46,83 +48,11 @@
 
 /* Mobile styles */
 @media (max-width: 800px) or (orientation: portrait) {
-	:root {
-		--nav-height: 10vw;
-		--gap-size-huge: 0px;
-		--border-radius-large: 0px;
-	}
-
-	/* Mobile font scale */
-	html {font-size: 200%}
-
 	/* Make the info layout stack */
 	section.page {
 		display:block;
 		div {
 			width:100%
 		}
-	}
-
-	#navbar {
-		border-radius: none;
-		margin: 0px;
-		width:100%;
-	}
-
-	.nav-button {
-		position: relative;
-		display: inline-block;
-	}
-	
-	.hamburger {
-		width: var(--nav-height);
-		height: var(--nav-height);
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-
-		svg {
-			width: var(--nav-height);
-			height: var(--nav-height);
-		}
-
-		svg path {
-			stroke: var(--foreground-accent);
-		}
-	}
-	
-	/* Implemented dropdown menu */
-	.dropdown-buttons {
-		position: absolute;
-		top: calc(100%);
-		right: 0;
-		display: flex;
-		flex-direction: column;
-		gap: var(--gap-size-norm);
-		padding: var(--gap-size-small);
-
-		opacity: 0;
-		visibility: hidden;
-		transform: translateY(-10px);
-		transition: all .2s ease;
-		z-index: 1000;
-
-		/* this dropdown has perfect sizing but these make it conform for mobile :/ */
-		width: 100%;
-		
-		/* Dropdown menu styles: */
-		background: var(--background);
-		border: var(--border-width) solid var(--background-accent);
-		border-radius: var(--border-radius);
-	}
-	
-	/* When to show the dropdown */
-	.nav-buttons:hover .dropdown-buttons,
-	.nav-buttons:focus-within .dropdown-buttons {
-		opacity: 1;
-		visibility: visible;
-		transform: translateY(0);
 	}
 }

@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
 					</svg>
 				</div>
 				<div class="dropdown-buttons">
-					<a href="" title="View Posts"><button>Posts <i>(Public)</i></button></a>
-					<a href="" title="Log in"><button>Login</button></a>
-					<a href="" title="Sign up"><button class="alt">Sign Up</button></a>
+					<a href="" title="View Posts"><button>Posts</button></a>
+					<a href="" title="Open source code page"><button>Source</button></a>
+					<a href="portal.html" title="Sign up"><button class="alt">Sign Up</button></a>
 					<a href="" title="Create Post"><button class="alt">+</button></a>
 				</div>
 			</div>
