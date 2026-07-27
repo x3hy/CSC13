@@ -35,7 +35,6 @@ b {filter: url(#distort)}
 	margin:0px;
 	padding:0px;
 	color: var(--foreground);
-	box-sizing:border-box;
 }
 
 body {
@@ -49,7 +48,7 @@ body {
 #navbar {
 	height:fit-content;
 	box-sizing:border-box;
-	padding: var(--gap-size-small) var(--gap-size-large);
+	padding: var(--gap-size-small) var(--gap-size-small);
 
 	display:flex;
 	align-items:center;
@@ -78,19 +77,19 @@ body {
 		scale: 0.8;
 	}
 
-	.nav-buttons {
-		display: flex;
-		gap: var(--gap-size-norm);
-		overflow:visible
+	.dropdown-buttons {
+		display:flex;
+		gap: var(--gap-size-small);
 	}
 }
 
-/* Basic button-like styles (im so funny)*/
+/* Basic global styles */
+
 button {
 	outline:none;
 	border:none;
 	background:transparent;
-	padding: var(--gap-size-small) var(--gap-size-norm);
+	padding: var(--gap-size-small);
 	color:var(--foreground);
 	font-family: var(--font-family);
 	font-size: 1rem;
@@ -102,6 +101,7 @@ button {
 
 	&.alt {
 		border-radius: var(--border-radius);
+		padding: var(--gap-size-small) var(--gap-size-norm);
 		background: var(--foreground-accent);
 		color: var(--background);
 	}
@@ -115,24 +115,6 @@ button {
 	&:active {
 		opacity:0.9;
 		transform:rotate(5deg) scale(1.1);
-	}
-}
-
-section.page {
-	width:100%;
-	display:flex;
-	padding: 0 var(--gap-size-huge);
-	box-sizing:border-box;
-	height:fit-content;
-
-	div {
-		padding: var(--gap-size-norm);
-		overflow:  hidden;
-		width:50%;
-		height:100%;
-		box-sizing:border-box;
-		filter: url(#dither);
-		background: var(--background-accent);
 	}
 }
 
@@ -155,116 +137,6 @@ img {
 	height:100%;
 	width:100%;
 	object-fit: cover;
-}
-
-
-/* Image styles from hero page */
-.header-img {
-	margin-top: calc(var(--nav-height) + var(--gap-size-small));
-	width: var(--body-inner-width);
-	margin-left: var(--gap-size-huge);
-	position:relative;
-	overflow:hidden;
-
-	/* Size of the hero image */
-	height:50vh;
-
-	&::after {
-		content: "";
-		top: 0;
-		right:0;
-		position: absolute;
-		width:100%;
-		height:100%;
-
-		/* Gradient layer over the image */
-		background:linear-gradient(var(--background), transparent);
-	}
-}
-
-/* Mobile styles */
-@media (max-width: 800px) or (orientation: portrait) {
-	:root {
-		--nav-height: 10vw;
-		--gap-size-huge: 0px;
-		--border-radius-large: 0px;
-	}
-
-	html {
-		/* Mobile font scale */
-		font-size: 200%;
-	}
-
-	/* Make the info layout stack */
-	section.page {
-		display:block;
-		div {
-			width:100%
-		}
-	}
-
-	#navbar {
-		border-radius: none;
-		margin: 0px;
-		width:100%;
-	}
-
-	.nav-button {
-		position: relative;
-		display: inline-block;
-	}
-	
-	.hamburger {
-		width: var(--nav-height);
-		height: var(--nav-height);
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-
-		svg {
-			width: var(--nav-height);
-			height: var(--nav-height);
-		}
-
-		svg path {
-			stroke: var(--foreground-accent);
-		}
-	}
-	
-	/* Implemented dropdown menu */
-	.dropdown-buttons {
-		position: absolute;
-		top: calc(100%);
-		right: 0;
-		display: flex;
-		flex-direction: column;
-		gap: var(--gap-size-norm);
-		padding: var(--gap-size-small);
-
-		opacity: 0;
-		visibility: hidden;
-		transform: translateY(-10px);
-		transition: all .2s ease;
-		z-index: 1000;
-
-		/* this dropdown has perfect sizing but these make it conform for mobile :/ */
-		width: 100%;
-		
-		/* Dropdown menu styles: */
-		background: var(--background);
-		border: var(--border-width) solid var(--background-accent);
-		border-radius: var(--border-radius);
-	}
-	
-	/* When to show the dropdown */
-	.nav-buttons:hover .dropdown-buttons,
-	.nav-buttons:focus-within .dropdown-buttons {
-		opacity: 1;
-		visibility: visible;
-		transform: translateY(0);
-	}
 }
 
 /* Animations: */
