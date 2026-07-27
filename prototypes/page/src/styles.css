@@ -43,7 +43,7 @@ body {
 	padding:0px;
 	margin:0px;
 	font-family: var(--font-family);
-	font-size: 1rem;
+	font-size: 1.5rem;
 }
 
 .page-body {
@@ -99,7 +99,7 @@ button {
 	padding: var(--gap-size-small);
 	color:var(--foreground);
 	font-family: var(--font-family);
-	font-size: 1rem;
+	font-size: 1.5rem;
 	border-bottom: solid var(--border-width) var(--foreground-accent);
 	color: var(--foreground-accent);
 	transition: all 0.2s ease;
@@ -133,9 +133,8 @@ input {
 	padding: var(--gap-size-small) var(--gap-size-norm);
 	font-family: var(--font-family);
 	color: var(--background);
-	font-size: 1rem;
+	font-size: 1.5rem;
 }
-
 
 img {
 	image-rendering: pixelated;

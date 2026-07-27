@@ -8,8 +8,15 @@
 	box-sizing:border-box;
 }
 
-.form {
-	width:30vw;
+#login-form {
+	width:50vw;
+	display:flex;
+	align-items:center;
+	flex-wrap: wrap;
+	justify-content:center;
+	flex-direction: column;
+	gap: var(--gap-size-norm);
+
 	input {
 		width:100%;
 		outline:none;
@@ -23,6 +30,8 @@
 		border: solid var(--border-width) var(--foreground-accent);
 	}
 
+	label {width:100%}
+
 	button.alt {
 		width:100%;
 		padding: var(--gap-size-norm);
@@ -31,15 +40,11 @@
 
 .form-sign-in .sign-up {
 	display: none;
+	height:0px;
 }
 
-.sign-in {
-	display:none;
-}
-
-.form-sign-in .sign-in {
-	display:block;
-}
+.sign-in {display: none}
+.form-sign-in .sign-in {display: block}
 
 @media (max-width: 800px) or (orientation: portrait) {
 	.form {
