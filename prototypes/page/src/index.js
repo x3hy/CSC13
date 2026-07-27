@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		nav.innerHTML = /*html*/`
 			<header class="nav-header">
 				<a href="index.html">
-					<img src="logo_textonly.svg" id="nav-logo">
+					<img src="logos/logo_textonly.svg" id="nav-logo">
 				</a>
 			</header>
 			<div class="nav-buttons">
