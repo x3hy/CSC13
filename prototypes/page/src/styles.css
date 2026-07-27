@@ -169,6 +169,7 @@ img {
 	:root {
 		--gap-size-huge: var(--gap-size-large);
 		--border-radius-large: 0px;
+		--nav-height: 60px;
 	}
 
 	/* Mobile font scale */
