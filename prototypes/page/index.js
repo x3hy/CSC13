@@ -1,8 +1,5 @@
 // Use coc-tsserver for ale
 
-// Page settings
-const website_name = "Rebbit"
-const website_slogan = "Frog-friendly forum"
 
 // Navbar component (fuck react)
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,32 +8,56 @@ document.addEventListener("DOMContentLoaded", () => {
 		nav.innerHTML = /*html*/`
 			<header class="nav-header">
 				<a href="index.html">
-					<img src="logo_small.svg" id="nav-logo">
+					<img src="logo_textonly.svg" id="nav-logo">
 				</a>
 			</header>
 			<div class="nav-buttons">
-				<button>Posts (Public)</button>
-				<button class="alt">Sign Up</button>
+				<a href="" title="View Posts"><button>Posts <i>(Public)</i></button></a>
+				<a href="" title="Log in"><button>Login</button></a>
+				<a href="" title="Sign up"><button class="alt">Sign Up</button></a>
+				<a href="" title="Create Post"><button class="alt">+</button></a>
 			</div>
 		`
 	}
 })
 
+
 // Animation library:
 document.addEventListener("DOMContentLoaded", () => {
-	document.querySelectorAll(".animate-in").forEach(element => {
-		element.classList.add("hidden");
-		const intersect_options = {
-			root: document.body,
-			threshold: 1.0
+	document.querySelectorAll("[data-anim]").forEach(element => {
+		element.classList.add ("anim");
+
+		// Run this when element is on screen
+		function callback(){
+			const duration = element.dataset.duration;
+			const animation = element.dataset.anim;
+			const timing = element.dataset.trans;
+			const delay = element.dataset.delay;
+
+			if (animation)  element.style.animationName = animation
+			if (timing) element.style.animationTimingFunction = timing;
+			if (delay) element.style.animationDelay = delay;
+			if (duration) element.style.animationDuration = duration;
 		}
 
-		// Wait for the element to come into screen
+		if (element.dataset.anim_instant){
+			callback();
+			return;
+		}
+
+		// Listen for the element to come onscreen
 		const observer = new IntersectionObserver((e) => {
-			if (e[0].isIntersecting){
-				console.log("test123");
-			}
-		},intersect_options);
+			if (!e[0].isIntersecting) return
+			
+			// Unobserve or animations will play EVERY time
+			// the element comes on screen.
+			observer.unobserve(element);
+
+			// Run the primary function above
+			callback();
+		}, {threshold: 0.1});
+
+		// Start listener
 		observer.observe(element);
 	})
 })
