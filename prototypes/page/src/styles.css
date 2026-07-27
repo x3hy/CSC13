@@ -47,7 +47,7 @@ body {
 }
 
 .page-body {
-	padding: 0px var(--gap-size-huge);
+	margin: 0px var(--gap-size-huge);
 }
 
 #navbar {
@@ -124,6 +124,18 @@ button {
 		transform:rotate(5deg) scale(1.1);
 	}
 }
+
+input {
+	outline: none;
+	border: none;
+	background: var(--foreground);
+	border: solid var(--border-width) var(--foreground-accent);
+	padding: var(--gap-size-small) var(--gap-size-norm);
+	font-family: var(--font-family);
+	color: var(--background);
+	font-size: 1rem;
+}
+
 
 img {
 	image-rendering: pixelated;

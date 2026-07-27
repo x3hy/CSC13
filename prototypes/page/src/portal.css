@@ -1,10 +1,11 @@
 @import "styles.css";
 
-body {
+.page-body {
+	height:80vh;
 	display:flex;
 	align-items:center;
 	justify-content: center;
-	height:80vh;
+	box-sizing:border-box;
 }
 
 .form {
@@ -16,12 +17,32 @@ body {
 		padding: var(--gap-size-norm);
 		box-sizing:border-box;
 		font-size: 1.2rem;
+		font-family: var(--font-family);
+		color: var(--background);
+		background: var(--foreground);
+		border: solid var(--border-width) var(--foreground-accent);
 	}
-
-	background:red;
 
 	button.alt {
 		width:100%;
 		padding: var(--gap-size-norm);
+	}
+}
+
+.form-sign-in .sign-up {
+	display: none;
+}
+
+.sign-in {
+	display:none;
+}
+
+.form-sign-in .sign-in {
+	display:block;
+}
+
+@media (max-width: 800px) or (orientation: portrait) {
+	.form {
+		width:100% !important;
 	}
 }
