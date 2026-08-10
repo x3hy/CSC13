@@ -4,62 +4,74 @@
 <head>
 	<meta charset="UTF-8">
 	<title id="title">Home</title>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Rebbit | Home</title>
+	<link rel="icon" href="logos/logo_icon_dark.ico" type="image/x-icon">
+	<script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js"></script>
 	<link rel=stylesheet href="src/styles.css">
 	<script src="src/public/index.js"></script>
 	<script defer>
 		validate_session_permanence(()=>{})
 	</script>
+	<script>
+		const lenis = new Lenis({
+		  autoRaf: true,
+		});
+	</script>
 </head>
-<body class="home-page">
-	<header>
-		<nav>
-			<h1><span class="logo"></span>/Home</h1>
-			<span>
-				<a href="index.html"><mark>Home</mark></a>
-				<span class="auth">
-					<a href="dashboard.html">Dashboard</a>
-					<a href="user.html">Profile</a>
-				</span>
-				<a href="feed.html">Feed</a>
-				<span class="auth">
-					<button onclick="sign_out();open_home()">Sign out</button>
-					<a href="create.html">
-						<button id="create" >Create</button>
-					</a>
-				</span>
-				<span class="non-auth">
-					<a href="sign_in.html">Sign In</a>
-					<a href="sign_in.html?sign=up">Sign Up</a>
-				</span>
-			</span>
-		</nav>
-		<hr>
-		<h2>Welcome to <span class="logo accent"></span>!</h2>
-		<section>
-			<p>
-				<span class="logo"></span> is a privacy-first platform allowing people to upload tech-related questions and have one of our workers come and assist you.
-				<span class="non-auth">You must have an account before you start doing anything, Click on the top left "Sign Up" button to open the account
-				creation page, or alternatively press the "Sign In" button if you already have an account.</span><span class="auth">You are already signed
-				into an account (<span class="display accent"></span>), Click the "Open Dashboard" button in the top left to start creating!</span>
-			</p>
-			<hr>
-			<p>
-				<mark><b>
-					ACCOUNTS: this is for moderation, this would not be included in the end project.
-					<br>
-					There are 20 default accounts, they all follow the same pattern:
-					<br><br>
-					coolguyN
-					<br>
-					passwordN
-					<br>
-					where N is a number from 1-20. There is ONE ADMIN account, it is user 1, (coolguy1, password1).
-					<br>
-					<br>
-					posts are randomly created with random upvotes from random users. this is just fake data. to reset the database goto the following link. <a href="db/reset.php">RESET (may take some time to load)</a>
-				</b></mark>
-			</p>
+<body>
+	<nav id="navbar" data-anim="from-top" data-anim-instant=true data-duration="700ms" data-delay="1000ms"></nav>
+	<div class="page-body">
+		<div class="header-img" data-anim="from-bottom" data-anim-instant=true data-duration="700ms">
+			<img class="bg-img" src="src/images/camera_dithered.png">
+		</div>
+		<section class="page" data-anim="from-bottom" data-delay="200ms">
+			<div>
+				<h1 class="dropcap">T</h1>he modern internet has a problem, it connects us like never before. This convenience comes the cost of digital soverency. Today, protecting your online privacy has shifted from a conspiricy-fueled choice to a now uphill battle against systematic surveilance capitalism. Online every click, purchase and search is logged by one or more party, now-a-days the internet is primarily made up of technologies and software owned by large tech companies <i>(Google, Microsoft, OpenAI, Meta - to name a few)</i>. Your data is compiled and catagorised before being <b>monitized</b> which is done by <b>selling your personal information to hidden, private data brokers and tech conglomerates</b> who use your data to determine the best adverts to show you.  We no longer use the internet as a user-driven recreational thing, the internet is everywhere, used by everyone. The internet tracks, profiles and predicts your every move, turning the simple act of an expected right <i>(the right to your own digital freedom & privacy)</i>. With each passing day privacy becomes less of a default and more of a <b>luxury that we must now actively and exhaustivly</b>.
+				<br><br>
+				<h1 class="dropcap">S</h1>o, what can you do about it? If you use the internet and want to take control of your personal privacy - you could start by ensuring any online social/communication services do not use your personal name or any personally identifiable information. <b>Rebbit</b> is a public communications platform dissimilar to the norm. Services such as Reddit or Twitter, capture identifiying information about your session such as screen sizes and your IPv4 address. This information is sent to logging servers as frequently a per-second basis. Rebbit makes sure that you have the control. Rebbit is completly free and open source, Press on the <b>Sign Up</b> button <I>(on the top navbar)</I> to start now.
+			</div>
+
+			<div>
+				<img class="img-logo" style="--width=10%" src="src/images/logo_icon.svg" alt="Graphic of stork (bird) eating a frog.">
+				<br>
+				<h1 class="dropcap">A</h1>bove is the logo of this organisation, this graphic is a metaphor refering to the stance of massive companies in modern internet infrastructure. The bird represents big tech companies and the frog represents you as a user.
+			</div>
 		</section>
-	</header>
+
+		<br>
+		<hr>
+		<br>
+		<footer>
+			This site <i>(and content on this site)</i> - is licensed under the <a href="license.txt">MIT License</a>. Copyright x3hy 2026; I hereby forbit the use of any tool related to AI scraping.
+		</footer>
+		<br>
+
+		<svg class="filters">
+			<defs>
+				<filter id="distort">
+					<feTurbulence baseFrequency="0.008 0.008" numOctaves="1" result="noise"/>
+					<feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="R">
+				</filter>
+			</defs>
+		</svg>
+		<svg class="filters">
+			<defs>
+				<filter id="dither" filteres="32 32">
+					<feComponentTransfer>
+						<feFuncR type="discrete" tableValues="0 1"/>
+						<feFuncG type="discrete" tableValues="0 1"/>
+						<feFuncB type="discrete" tableValues="0 1"/>
+						<feFuncA type="discrete" tableValues="0 1"/>
+					</feComponentTransfer>
+				</filter>
+			</defs>
+		</svg>
+	</div>
 </body>
 </html>

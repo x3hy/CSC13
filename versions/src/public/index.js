@@ -168,19 +168,42 @@ function open_create(extra){
 	location.href = href;
 }
 
-function open_profile(extra){
-	let href = __DIR__ + "/../../user.html";
-	if (extra != undefined)
-		href += extra;
-	location.href = href;
-}
-
 function open_error(reason, code = 200){
 	let href = __DIR__ + "/../../error.html";
 	if (reason != undefined)
 		href += `?q=${reason}&c=${code}`;
 	location.href = href;
 }
+
+
+// Navbar component (fuck react)
+document.addEventListener("DOMContentLoaded", () => {
+	const nav = document.getElementById("navbar");
+	if (nav){
+		nav.innerHTML = /*html*/`
+			<header class="nav-header">
+				<a href="index.html">
+					<img src="src/images/logo_textonly.svg" id="nav-logo">
+				</a>
+			</header>
+			<div class="nav-buttons">
+				<div class="hamburger" tabindex="0">
+					<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 7L7 7M20 7L11 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+						<path d="M20 17H17M4 17L13 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+						<path d="M4 12H7L20 12" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+					</svg>
+				</div>
+				<div class="dropdown-buttons">
+					<a onclick="open_feed()" title="View Posts"><button>Posts</button></a>
+					<a onclick="open_dashboard()" title="Dashboard page"><button>Dashboard</button></a>
+					<a onclick="open_sign_in()" title="Sign up"><button class="alt">Sign Up</button></a>
+					<a onclick="open_create()" title="Create Post"><button class="alt">+</button></a>
+				</div>
+			</div>
+		`
+	}
+})
 
 // Signs in a user
 async function sign_in(username, password){
