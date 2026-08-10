@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 })
 
-
 // Animation library:
 document.addEventListener("DOMContentLoaded", () => {
 	document.querySelectorAll("[data-anim]").forEach(element => {
