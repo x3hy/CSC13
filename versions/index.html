@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- Home page -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title id="title">Home</title>
+	<link rel=stylesheet href="src/styles.css">
+	<script src="src/public/index.js"></script>
+	<script defer>
+		validate_session_permanence(()=>{})
+	</script>
+</head>
+<body class="home-page">
+	<header>
+		<nav>
+			<h1><span class="logo"></span>/Home</h1>
+			<span>
+				<a href="index.html"><mark>Home</mark></a>
+				<span class="auth">
+					<a href="dashboard.html">Dashboard</a>
+					<a href="user.html">Profile</a>
+				</span>
+				<a href="feed.html">Feed</a>
+				<span class="auth">
+					<button onclick="sign_out();open_home()">Sign out</button>
+					<a href="create.html">
+						<button id="create" >Create</button>
+					</a>
+				</span>
+				<span class="non-auth">
+					<a href="sign_in.html">Sign In</a>
+					<a href="sign_in.html?sign=up">Sign Up</a>
+				</span>
+			</span>
+		</nav>
+		<hr>
+		<h2>Welcome to <span class="logo accent"></span>!</h2>
+		<section>
+			<p>
+				<span class="logo"></span> is a privacy-first platform allowing people to upload tech-related questions and have one of our workers come and assist you.
+				<span class="non-auth">You must have an account before you start doing anything, Click on the top left "Sign Up" button to open the account
+				creation page, or alternatively press the "Sign In" button if you already have an account.</span><span class="auth">You are already signed
+				into an account (<span class="display accent"></span>), Click the "Open Dashboard" button in the top left to start creating!</span>
+			</p>
+			<hr>
+			<p>
+				<mark><b>
+					ACCOUNTS: this is for moderation, this would not be included in the end project.
+					<br>
+					There are 20 default accounts, they all follow the same pattern:
+					<br><br>
+					coolguyN
+					<br>
+					passwordN
+					<br>
+					where N is a number from 1-20. There is ONE ADMIN account, it is user 1, (coolguy1, password1).
+					<br>
+					<br>
+					posts are randomly created with random upvotes from random users. this is just fake data. to reset the database goto the following link. <a href="db/reset.php">RESET (may take some time to load)</a>
+				</b></mark>
+			</p>
+		</section>
+	</header>
+</body>
+</html>

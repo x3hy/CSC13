@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- Sign in page -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title id="title">Sign In</title>
+	<link rel=stylesheet href="src/styles.css">
+	<script defer src="src/public/index.js"></script>
+	<script defer src="src/public/login.js"></script>
+</head>
+<body class="login-page">
+	<!-- Login form -->
+	<header>
+		<nav>
+			<h1><span class="logo"></span>/Feed</h1>
+			<span>
+				<a href="index.html">Home</a>
+				<span class="auth">
+					<a href="dashboard.html">Dashboard</a>
+					<a href="user.html">Profile</a>
+				</span>
+				<a href="feed.html"><mark>Feed</mark></a>
+				<span class="auth">
+					<button onclick="sign_out();open_home()">Sign out</button>
+					<a href="create.html">
+						<button id="create" >Create</button>
+					</a>
+				</span>
+				<span class="non-auth">
+					<a href="sign_in.html">Sign In</a>
+					<a href="sign_in.html?sign=up">Sign Up</a>
+				</span>
+			</span>
+		</nav>
+		<section>
+			Please remember your username and password, part of our privacy policy ensures that if you forget your password, your account is locked forever.
+		</section>
+		<section>
+			<form id="login-form" class="form-sign-in">
+					<h2 id="login-form-header"></h2>
+
+				<!-- *Name options -->
+				<table>
+					<tbody>
+						<tr>
+							<td>Username:</td>
+							<td>
+								<input type="text" placeholder="Username" name="username" autocomplete="username">
+							</td>
+						</tr>
+						<tr class="sign-up">
+							<td>Display Name:</td>
+							<td>
+								<input type="text" placeholder="Display Name" name="display">
+							</td>
+						</tr>
+						<tr>
+							<td>Password:</td>
+							<td>
+								<input type="password" placeholder="Password" name="password" autocomplete="password">
+							</td>
+						</tr>
+						<tr class="sign-up">
+							<td>Confirm Password:</td>
+							<td>
+								 <input type="password" placeholder="Confirm Password" name="passwordconfirm">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<i id="login-form-errors"></i>
+				<br>
+				
+				<!-- Action buttons -->
+				<button id="login-form-submit">
+					<b>Submit</b>
+				</button>
+				<b>
+					<button id="login-form-switch"></button>
+				</b>
+			</form>
+		</section>
+	</header>
+</body>
+</html>
