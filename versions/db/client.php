@@ -318,30 +318,26 @@ function ring_1($data)
 		"remove_vote" => client_remove_vote($data["content"], $data["auth"]["username"]),
 		"change_username" => change_username($data["auth"]["username"], $data["auth"]["username"], $data["content"]),
 		"delete_post" => client_delete_post($data["auth"]["username"], $data["content"]),
-		"create_post" => client_create_post($data["auth"]["username"], $data["content"]["content"], $data["content"]["parent_id"]), // big boi
+		"create_post" => client_create_post($data["auth"]["username"], $data["content"]["content"], $data["content"]	["parent_id"]), // big boi
 
 		default => null
 	};
 }
 
 // Ring 2, username, passord and ADMIN roles are required (propriatary functions)
-function ring_2($data)
-{
-	return match ($data["call"])
-	{
+function ring_2($data) {
+	return match ($data["call"]) {
 		"admin_ping" => client_ping(),
 		"list_users" => client_get_users_list(),
 		"delete_user" => client_delete_user($data["content"]),
 		"toggle_admin" => client_toggle_admin($data["content"]),
 		"delete_post_admin" => client_delete_post_admin($data["content"]),
-
 		default => null
 	};
 }
 
 // main:
-if ($data !== null && is_array($data))
-  {
+if ($data !== null && is_array($data)) {
 	// The given json should contain a "call" value
 	if (!isset($data["call"]))
 		client_exit(1, "Required parameters not given:");

@@ -20,6 +20,7 @@
 	</div>
 	
 	<script>
+		validate_session_permanence(()=>{});
 		// Handles the URL params
 		const params = new URLSearchParams(String(location.href).split("?")[1]);
 		for (let pair of params.entries()){

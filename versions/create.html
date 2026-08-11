@@ -6,51 +6,101 @@
 	<title id="title">Create</title>
 	<link rel=stylesheet href="src/styles.css">
 	<script src="src/public/index.js"></script>
-	<script defer src="src/public/create.js"></script>
 	<script defer>
 		validate_session_permanence()
+		document.addEventListener("DOMContentLoaded", () => {
+			const post_message = document.getElementById("post-message");
+			const post_user = document.getElementById("post-user");
+			const post_time = document.getElementById("post-time");
+			const form_submit = document.getElementById("form-submit");
+			const form_content = document.getElementById("form-content");
+			const form_cancel = document.getElementById("form-cancel");
+			const post_info = document.getElementById("post-info");
+			let post_id = false;
+
+			// Load data onto the page:
+			async function load_post_data(id){
+				if (id == undefined){
+					window.alert("Id given is undefined.. this will break something");
+					return;
+				}
+
+				const post = await POST({"call": "get_post", "content": id});
+				if (post.status != 0)
+					open_error(post.message, 404);
+
+				// elipse text
+				const post_max_size = 20;
+				post_message.innerText = post.message.description;
+				if (String(post_message.innerText).length > post_max_size)
+					post_message.innerText = post_message.innerText.substring(0, post_max_size) + '...'
+				
+				
+				post_time.innerText = time_since(post.message.time_issued);
+				
+				if (is_deleted_user(post)){
+					post_user.innerText = "Deleted User";
+				} else post_user.innerText = `<a>${resolve_name(post)}</a>`;
+
+
+				post_info.addEventListener("click", ()=>{
+					open_post(`?post_id=${post.message.id}`)
+				});
+				post_info.style.display = "";
+
+			}
+			
+			post_info.style.display = "none";
+
+			// Load the post, more comment in feed.js
+			const params = new URLSearchParams(String(location.href).split("?")[1]);
+			for (let pair of params.entries())
+				if (pair[0] == "post_id"){
+					post_id = pair[1];
+					if (post_id != false) 
+						load_post_data(post_id);
+					else window.alert("Failed to load post #" + post_id);
+				}
+
+			form_submit.addEventListener("click", async ()=>{
+				console.log(form_content.value);
+				let packet = {};
+				packet["content"] = form_content.value;
+				if (post_id != false)
+					packet["parent_id"] = post_id;
+
+				console.log(packet);
+				const resp = await POST({"call": "create_post", "content": packet});
+				if (resp.status == 0)
+					form_cancel.click();
+				else 
+					window.alert(resp.message);
+			});
+
+			form_cancel.addEventListener("click", async ()=>{
+				location.href = (__DIR__ +  "../../../feed.html" + String(await post_id ? `?post_id=${await post_id}` : ""));
+			});
+		});
+
 	</script>
 </head>
-<body class="home-page">
-	<header>
-		<nav>
-			<h1><span class="logo"></span>/Feed</h1>
-			<span>
-				<a href="index.html">Home</a>
-				<span class="auth">
-					<a href="dashboard.html">Dashboard</a>
-					<a href="user.html">Profile</a>
-				</span>
-				<a href="feed.html">Feed</a>
-				<span class="auth">
-					<button onclick="sign_out();open_home()">Sign out</button>
-					<a href="create.html">
-						<button id="create"><mark>Create</mark></button>
-					</a>
-				</span>
-				<span class="non-auth">
-					<a href="sign_in.html">Sign In</a>
-					<a href="sign_in.html?sign=up">Sign Up</a>
-				</span>
-			</span>
-		</nav>
-	</header>
-	<section id="post-info">
-		<hr>
-		<!-- Quote -->
-		<p>Quoted Post:</p>
-		<i id="post-quote"><blockquote>
-			<p id="post-message">quoted message</p>
-			<sub>
-				Posted by 
-				<b id="post-user">USER</b>, <b id="post-time">TIME</b> ago.
-			</sub>
-		</blockquote></i>
-	</section>
-	<hr>
-	<article>
-		<textarea placeholder="Type your post here" id="form-content"></textarea>
-		<button id="form-submit">Post</button> <button id="form-cancel">Cancel (Open feed)</button>
-	</article>
+<body>
+	<nav id="navbar" class="nobg"></nav>
+	<br>
+	<div class="page-body">
+		<blockquote id="post-info">
+			<p>
+				Replying to post by <b id="post-user">USER</b>, <b id="post-time">TIME</b> ago.
+			</p>
+			<sub id="post-message">quoted message</sub>
+			<hr>
+		</blockquote>
+		
+		<article>
+			<textarea placeholder="Type your post here" id="form-content" class="body-form"></textarea>
+			<br>
+			<button id="form-submit" class="alt">Post comment</button> <button id="form-cancel">Cancel (Open feed)</button>
+		</article>
+	</div>
 </body>
 </html>

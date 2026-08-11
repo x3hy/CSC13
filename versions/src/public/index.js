@@ -51,6 +51,13 @@ let _resp_count = 0; async function POST(content, callback = console.error) {
 	return await out;
 }
 
+// Cred key names
+const _username = "username";
+const _password = "password";
+let _is_admin = false;
+let _is_valid = false;
+let _is_loaded = false;
+
 // if a user is not signed in then they will be
 // sent to the sign-in page. callback is run if user
 // is not signed in.
@@ -67,26 +74,21 @@ async function validate_session_permanence(callback){
 	// auth call then we'd also have to figure out if the
 	// user was an admin, this function kills two auths with
 	// one request.
-	await update_admin_status();
-	if (!_is_admin){ // does user have ring-2?
-		await update_session();
-		if (!_is_valid) // does user have ring-1?
+	if (! await update_admin_status()){ // does user have ring-2?
+		if (! await update_session()){ // does user have ring-1?
 			if (callback == undefined)
 				_callback(); // logout
 			else callback();
+		}
 	} else _is_valid = true; // sudoku
+	console.log(`Authenticated (Valid: ${_is_valid}, Admin: ${_is_admin})`);
+	init_auth_elements();
 	
 	// Hooks section:
-	init_auth_elements();
 	return _is_loaded = true; // for other functions
 }
 
-// Cred key names
-const _username = "username";
-const _password = "password";
-let _is_admin = false;
-let _is_valid = false;
-let _is_loaded = false;
+
 
 // Gets the username and password from the localStorage
 // Session thang
@@ -180,11 +182,19 @@ function open_error(reason, code = 200){
 document.addEventListener("DOMContentLoaded", () => {
 	const nav = document.getElementById("navbar");
 	if (nav){
+		
+		// get the filename of the current page
+		let pagename = location.href.split("/");
+		pagename = pagename[pagename.length - 1];
+		pagename = pagename.split(".");
+		pagename = pagename[0];
+		
 		nav.innerHTML = /*html*/`
 			<header class="nav-header">
 				<a href="index.html">
 					<img src="src/images/logo_textonly.svg" id="nav-logo">
 				</a>
+				<sub class="navbar-sub">${pagename}</sub>
 			</header>
 			<div class="nav-buttons">
 				<div class="hamburger" tabindex="0">
@@ -196,8 +206,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				</div>
 				<div class="dropdown-buttons">
 					<a onclick="open_feed()" title="View Posts"><button>Posts</button></a>
-					<a onclick="open_dashboard()" title="Dashboard page"><button>Dashboard</button></a>
-					<a onclick="open_sign_in()" title="Sign up"><button class="alt">Sign Up</button></a>
+					<a onclick="open_dashboard()" class="auth" title="Dashboard page"><button>Dashboard</button></a>
+					<a onclick="open_sign_in()" class="non-auth" title="Sign up"><button class="alt">Sign Up</button></a>
+					<a onclick="sign_out()" class="auth" title="Sign out"><button class="alt">Sign Out</button></a>
 					<a onclick="open_create()" title="Create Post"><button class="alt">+</button></a>
 				</div>
 			</div>
@@ -223,8 +234,8 @@ function validate_session(){
 
 async function update_session(){
 	const sign_in_resp = await POST({"call":"auth_ping"});
-	_is_valid = (sign_in_resp.status == 0);
-	return _is_valid;
+	_is_valid = (await sign_in_resp.status == 0);
+	return await _is_valid;
 }
 
 async function get_name() {
@@ -253,7 +264,6 @@ async function get_admin_status(id){
 	return (resp.status == 0);
 }
 
-//
 async function update_admin_status(){
 	_is_admin = await get_admin_status();
 	return await _is_admin;
@@ -273,32 +283,34 @@ async function validate_session(){
 // password from localStorage.
 function sign_out (){
 	localStorage.clear();
+	location.href = "";
 }
 
 // Removes certain elements depending on authentication
 // level.
 async function init_auth_elements(){
-	const auth_class = "auth";
-	const non_auth_class = "non-auth";
-	const admin_class = "admin";
+	const auth_elements = document.querySelectorAll(".auth");
+	const non_auth_elements = document.querySelectorAll(".non-auth");
+	const admin_elements = document.querySelectorAll(".admin");
 	
-	// If the user is authed:
-	if (_is_valid == true){
-		document.querySelectorAll("." + auth_class)
-			.forEach(element => element.classList.remove(auth_class));
-		document.querySelectorAll("." + non_auth_class)
-			.forEach(element => element.remove());
+	// If the user is not valid then we can remove everything
+	if (!_is_valid){
+		console.log("user is not valid");
+		auth_elements.forEach(element => element.remove());
+		admin_elements.forEach(element => element.remove());
+	
+	// User must be authenticated
+	} else {
+		non_auth_elements.forEach(element => element.remove());
+		
+		// If user is not an admin:
+		if (!_is_admin)
+			admin_elements.forEach(element => element.remove());
 	}
 	
-	// If the user is also an admin:
-	if (_is_admin){
-		document.querySelectorAll("." + admin_class)
-		.forEach(element => element.classList.remove(admin_class));
-	}
-
+	// Set username
 	const name = await get_name();
-	document.querySelectorAll(".display")
-	.forEach(async (element) => {
+	document.querySelectorAll(".display").forEach(async (element) => {
 		element.innerHTML = await name;
 	});
 }
@@ -382,33 +394,66 @@ async function validate_password(password){
 	);
 }
 
-function time_since (date)
-		{
-			const fmt = (time, ext) =>
-				{return `${time} ${ext}${(time >= 1) ? "s" : ""}`}
+// Creates a new user
+async function sign_up(username, password, display){
+	// hash the password
+	password = await generate_password(password);
 		
-			const old_date = new Date(date);
-			let seconds = Math.floor((new Date() - old_date) / 1000)
-			
-			var interval = seconds / 31536000;
-			if (interval > 1)
-				return fmt(Math.floor(interval), "year");
-			
-			interval = seconds / 2592000;
-			if (interval > 1)
-				return fmt(Math.floor(interval),"month");
-			
-			interval = seconds / 86400;
-			if (interval > 1)
-				return fmt(Math.floor(interval),"day");
-			
-			interval = seconds / 3600;
-			if (interval > 1)
-				return fmt(Math.floor(interval), "hour");
-			
-			interval = seconds / 60;
-			if (interval > 1)
-				return fmt(Math.floor(interval), "minute");
-			
-			return fmt(Math.floor(seconds), "second");
-		}
+	// set it into the local storage:
+	localStorage.setItem(_username, username);
+	localStorage.setItem(_password, password);
+	
+	// validate using syscall
+	return await POST({"call":"create_user", "content": display});
+}
+
+// Validates a username using server api
+async function validate_username(username){
+	 return await POST(
+		{"call":"username", "content" : username}
+	);
+}
+
+// Validates a display name using the server api
+async function validate_display(display){
+	return await POST(
+		{"call":"display", "content" : display}
+	);
+}
+
+// Validates a password using the server api
+async function validate_password(password){
+	return await POST(
+		{"call":"password", "content" : password}
+	);
+}
+
+function time_since (date){
+	const fmt = (time, ext) =>
+		{return `${time} ${ext}${(time >= 1) ? "s" : ""}`}
+
+	const old_date = new Date(date);
+	let seconds = Math.floor((new Date() - old_date) / 1000)
+	
+	var interval = seconds / 31536000;
+	if (interval > 1)
+		return fmt(Math.floor(interval), "year");
+	
+	interval = seconds / 2592000;
+	if (interval > 1)
+		return fmt(Math.floor(interval),"month");
+	
+	interval = seconds / 86400;
+	if (interval > 1)
+		return fmt(Math.floor(interval),"day");
+	
+	interval = seconds / 3600;
+	if (interval > 1)
+		return fmt(Math.floor(interval), "hour");
+	
+	interval = seconds / 60;
+	if (interval > 1)
+		return fmt(Math.floor(interval), "minute");
+	
+	return fmt(Math.floor(seconds), "second");
+}
