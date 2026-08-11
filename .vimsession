@@ -286,11 +286,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   wipebuf = bufnr('%')
 endif
 set shortmess+=aoO
-badd +0 .gitignore
+badd +0 .git/COMMIT_EDITMSG
 argglobal
 :%argdel
-:$argadd .gitignore
-edit .gitignore
+:$argadd .git/COMMIT_EDITMSG
+edit .git/COMMIT_EDITMSG
 argglobal
 cpo_save = &cpo
 set cpo&vim
@@ -344,8 +344,8 @@ setlocal equalprg=
 setlocal errorformat=
 setlocal eventignorewin=
 setlocal noexpandtab
-if &filetype != 'gitignore'
-setlocal filetype=gitignore
+if &filetype != 'gitcommit'
+setlocal filetype=gitcommit
 endif
 setlocal fillchars=
 setlocal findfunc=
@@ -364,15 +364,15 @@ setlocal foldnestmax=20
 set foldtext=gitgutter#fold#foldtext()
 setlocal foldtext=gitgutter#fold#foldtext()
 setlocal formatexpr=
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal formatoptions=q
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}]\\s\\+\\|^\\s*[-*+]\\s\\+
+setlocal formatoptions=tln
 setlocal formatprg=
 setlocal grepformat=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=
-setlocal includeexpr=
+setlocal include=^+++
+setlocal includeexpr=substitute(v:fname,'^[bi]/','','')
 setlocal indentexpr=
 setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal noinfercase
@@ -389,7 +389,7 @@ setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
-setlocal modeline
+setlocal nomodeline
 setlocal modifiable
 setlocal nrformats=bin,octal,hex
 set number
@@ -427,17 +427,17 @@ setlocal statuslineopt=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'gitignore'
-setlocal syntax=gitignore
+if &syntax != 'gitcommit'
+setlocal syntax=gitcommit
 endif
-setlocal tabstop=4
+setlocal tabstop=8
 setlocal tagcase=
 setlocal tagfunc=
 setlocal tags=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=0
+setlocal textwidth=72
 setlocal thesaurus=
 setlocal thesaurusfunc=
 setlocal undofile
@@ -454,12 +454,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 {
-  var l: number = 2 - ((1 * winheight(0) + 24) / 49)
+  var l: number = 14 - ((13 * winheight(0) + 24) / 49)
   if l < 1 | l = 1 | endif
   keepjumps exe ":" .. l
   normal! zt
-  keepjumps :2
-  normal! 011|
+  keepjumps :14
+  normal! 015|
 }
 tabnext 1
 if wipebuf != -1 && len(win_findbuf(wipebuf)) == 0
