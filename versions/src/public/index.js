@@ -6,7 +6,7 @@ const __DIR__ = (function() {
 })();
 
 function resolve_name(row){
-	return row.display ? row.display : row.username ? row.username : "Deleted User";
+	return row.display != undefined ? row.display : row.username != undefined ? row.username : "Deleted User";
 }
 
 function is_deleted_user(row){
@@ -433,7 +433,7 @@ function time_since (date){
 		{return `${time} ${ext}${(time >= 1) ? "s" : ""}`}
 
 	const old_date = new Date(date);
-	let seconds = Math.floor((new Date() - old_date) / 1000)
+	let seconds = Math.floor((new Date() - old_date) / 1000) - 43200;
 	
 	var interval = seconds / 31536000;
 	if (interval > 1)

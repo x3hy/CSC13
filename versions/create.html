@@ -38,9 +38,9 @@
 				
 				post_time.innerText = time_since(post.message.time_issued);
 				
-				if (is_deleted_user(post)){
+				if (is_deleted_user(post.message)){
 					post_user.innerText = "Deleted User";
-				} else post_user.innerText = `<a>${resolve_name(post)}</a>`;
+				} else post_user.innerHTML = `<a>${await resolve_name(post.message)}</a>`;
 
 
 				post_info.addEventListener("click", ()=>{
