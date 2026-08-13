@@ -6,97 +6,94 @@
 	<title id="title">Dashboard</title>
 	<link rel=stylesheet href="src/styles.css">
 	<script src="src/public/index.js"></script>
-	<script src="src/public/dashboard.js" defer></script>
+	<script defer>
+		// loads all the users from the
+		// database as a table.
+
+		async function toggle_admin(id, e){
+			e.disabled = true;
+			await toggle_admin_status(id);
+			load_user_data();
+		}
+
+		async function delete_user_button(id, e){
+			e.disabled = true;
+			await delete_user(id);
+			load_user_data();
+		}
+
+		async function load_user_data(){
+			await validate_session_permanence();
+			const element = document.getElementById("users-table");
+
+			if (!_is_admin){
+				console.log("Failed to load data (you don't have ring 2 permission)");
+				return false; // youre not a admin bro..
+			}
+
+			const resp = await POST({
+				"call": "list_users"
+			});
+
+			// if the server responded without success
+			if (resp.status != 0){
+				window.alert("Failed to load data (internal error, this may occur if the pages _is_admin variable has been tampered with OR if you have had your admin access revoked during this session)");
+				return false;
+			}
+
+			let new_content = "";
+
+			// append the users to the dashboard
+			resp.message.forEach(async (user, index) => {
+				new_content += `
+					<article class="outline">
+						<blockquote>${user.username} <i>${(user.display  != null) ? user.display : ""}</i></blockquote>
+						<sub><span class="user-id">User #${user.id}</span> <b class="user-admin-tag">${user.admin ? "ADMINISTRATOR" : ""}</b></sub>
+						<br><br>
+						<section class="user-actions">
+							<button class="alt" onclick="delete_user_button(${user.id}, this)">Delete user</button>
+							<button class="alt" onclick="toggle_admin(${user.id}, this)">${user.admin ? "Revoke Admin" : "Make Admin"}</button>	
+							<button disabled>Open posts</button>
+							<button onclick="change_users_password(${user.id})" disabled>Change Password</button>
+						</section>
+					</article>
+				`;
+			});
+			element.innerHTML = new_content;
+		}
+		
+		load_user_data();
+	</script>
 </head>
 <body class="home-page">
-	<header>
-		<nav>
-			<h1><span class="logo"></span>/Dashboard</h1>
-			<span>
-				<a href="index.html">Home</a>
-				<span class="auth">
-					<a href="dashboard.html"><mark>Dashboard</mark></a>
-					<a href="user.html">Profile</a>
-				</span>
-				<a href="feed.html">Feed</a>
-				<span class="auth">
-					<button onclick="sign_out();open_home()">Sign out</button>
-					<a href="create.html">
-						<button id="create" >Create</button>
-					</a>
-				</span>
-				<span class="non-auth">
-					<a href="sign_in.html">Sign In</a>
-					<a href="sign_in.html?sign=up">Sign Up</a>
-				</span>
-			</span>
-		</nav>
-		<h1>Welcome to the Dashboard, <b class="accent"><span class="display">Username</span></b></h1>
-		<p>
-			Hello <b class="accent"><span class="display">Username</span></b>, this is the dashboard. This 
-			page lets you change your user information, think of it as a "settings" page. If you look 
-			towards the top left of this page you will see a few links, these let you navigate to the 
-			several pages of this site. If youre unsure where to begin, click on the "<i>Home</i>" 
-			button to learn more about this page as a whole. If you want to create a new post you can
-			do so by pressing the "Feed" button and moving to the top of the page. I you would like to
-			edit you profile you can change the values below in the "User Settings" section.
-		</p>
-		<hr>
+	<nav id="navbar" class="nobg"></nav>
+	<div class="page-body">
 		<section>
-			<form id="edit-form">
-				<p>
-					You can change your users settings here, change some or all of the properties below.
-					When you're finished press the "Submit Changes" button.
-				</p>
-				<h2><span class="display">Username</span>'s User Settings:</h2>
-				<table>
-					<tbody>
-						<tr>
-							<td>Username:</td>
-							<td><input placeholder="oldusername" id="edit-form-username" name="username"></td>
-						</tr>
-						<tr>
-							<td>Display Name:</td>
-							<td><input placeholder="display name" id="edit-form-display" name="display"></td>
-						</tr>
-						<tr>
-							<td>Password:</td>
-							<td><input placeholder="new password" id="edit-form-password" name="password"></td>
-						</tr>
-						<tr>
-							<td>Confirm Password:</td>
-							<td><input placeholder="new password" id="edit-form-password-confirm" name="confirm"></td>
-						</tr>
-					</tbody>
-				</table>
-				<i id="edit-form-error"></i>
-				<br>
-				<button id="edit-form-submit">Submit Changes</button>
-				<i>
-					<button onclick="delete_user()">Permanently Delete Account</button>
-					<button disabled>Delete All Posts</button>
-				</i>
-			</form>
+			<h1>Welcome to the Dashboard, <b class="accent"><span class="display">Username</span></b></h1>
+			<p>
+				Hello <b class="accent"><span class="display">Username</span></b>, this is the dashboard. This 
+				page lets you change your user information, think of it as a "settings" page. If you look 
+				towards the top left of this page you will see a few links, these let you navigate to the 
+				several pages of this site. If youre unsure where to begin, click on the "<i>Home</i>" 
+				button to learn more about this page as a whole. If you want to create a new post you can
+				do so by pressing the "Feed" button and moving to the top of the page. I you would like to
+				edit you profile you can change the values below in the "User Settings" section.
+			</p>
 		</section>
 		<hr>
-		<div class="admin">
+		<section>
+			<h1>Account Actions</h1>
+			<button onclick="delete_user()" class="alt">Permanently Delete Account</button>
+			<button disabled>Delete All Posts</button>
+		</section>
+		<hr>
+		<section class="admin">
+			<h1>Admin controls</h1>
 			<p>You are an <strong>Admin</strong>, you have special access to the database, below are some admin only features:</p>
-			<h2 class="left">Users:</h2>
-			<table class="left" id="users-table">
-				<thead>
-				<tr>
-					<th>#</th>
-					<th>Display</th>
-					<th>Username</th>
-					<th>Admin</th>
-					<th>Actions</th>
-				</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<!-- 28.50 -->
-		</div>
-	</header>
+			<h2>User list:</h2>
+			<div id="users-table">
+			</div>
+		</section>
+	</div>
 </body>
 </html>

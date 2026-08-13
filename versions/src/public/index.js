@@ -145,7 +145,7 @@ async function ping_server(){
 }
 
 function open_sign_in(){
-	location.href = __DIR__ + "/../../sign_in.html";
+	location.href = __DIR__ + "/../../sign.html";
 }
 
 function open_dashboard(){
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				<div class="dropdown-buttons">
 					<a onclick="open_feed()" title="View Posts"><button>Posts</button></a>
 					<a onclick="open_dashboard()" class="auth" title="Dashboard page"><button>Dashboard</button></a>
-					<a onclick="open_sign_in()" class="non-auth" title="Sign up"><button class="alt">Sign Up</button></a>
+					<a onclick="open_sign_in()" class="non-auth" title="Sign up / in"><button class="alt">Sign Up / Sign in</button></a>
 					<a onclick="sign_out()" class="auth" title="Sign out"><button class="alt">Sign Out</button></a>
 					<a onclick="open_create()" title="Create Post"><button class="alt">+</button></a>
 				</div>

@@ -101,6 +101,7 @@ p {margin:0px;}
 
 #navbar.nobg {
 	background: transparent;
+	border: none;
 }
 
 /* Basic global styles */
@@ -126,15 +127,20 @@ button {
 		color: var(--background) !important;
 	}
 	
-	&:hover {
+	&:not(:disabled):hover {
 		opacity:0.5;
 		transform: rotate(5deg) scale(0.9);
 		transition: all 0.1s ease;
 	}
 	
-	&:active {
+	&:not(:disabled):active {
 		opacity:0.9;
 		transform:rotate(5deg) scale(1.1);
+	}
+	
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 }
 
@@ -282,3 +288,17 @@ img {
 .error {
 	color: red;
 }
+
+blockquote {
+	--border-width: 3px;
+	margin:0px;
+	border-left: solid var(--border-width) var(--foreground-accent);
+	padding-left: var(--border-width);
+	margin-left: var(--gap-size-large);
+}
+
+.outline {
+	--border-width: 3px;
+	border: solid var(--border-width) var(--background-accent);
+	padding: var(--gap-size-norm);
+	margin-bottom: var(--gap-size-large);
