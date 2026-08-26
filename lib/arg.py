@@ -1,7 +1,6 @@
 from sys import argv
 # Fuck PEP8
 
-
 # Handy little argument helper object
 class args:
     def __init__(self, args, allowed = []):
