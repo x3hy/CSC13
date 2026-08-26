@@ -1,4 +1,6 @@
-# Fuck PEP8
+"""
+Basic vannila (no-import) command-line argument parser
+"""
 
 # Handy little argument helper object
 class args:
