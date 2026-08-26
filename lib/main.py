@@ -3,20 +3,46 @@ Main program code
 """
 from lib.types import exitcodes as e
 from lib.types import *
-import tkinter as tk
+import customtkinter as ctk
+
+
+# Custom components
+class cui:
+    def __init__(self, title, geom):
+        self.app = ctk.CTk();
+        self.app.title(title);
+        self.app.geometry(geom);
+
+        # Change BACKGROUND color (weird method)
+        self.app.configure(fg_color=Theme.background)
+        self.app.update_idletasks()
+
+    def button(self, text = None, command = None, padx = 0, pady = 0):
+        rbutton = ctk.CTkButton(master=self.app, text=text, command=command);
+        rbutton.pack(padx=padx, pady=pady);
+        return rbutton
+
+    def run(self):
+        return self.app.mainloop()
+
+    def app(self):
+        return self.app
 
 def main(SCALE: float) -> int:
-    root = tk.Tk()
-    root.configure(bg="#0000ff")
-    root.title("test123")
-    root.geometry("400x300")
-    root.attributes("-topmost", True)
-    root.tk.call("tk", "scaling", SCALE)
-    label = tk.Label(root, text="Hello World", bg="black", fg="white")
-    button = tk.Button(root, text="Click Me", bg="#ff0000", fg="#ffffff", relief="groove")
+    if (SCALE != 0):
+        # Change scaling
+        ctk.deactivate_automatic_dpi_awareness()
+        ctk.set_window_scaling(SCALE)
+        ctk.set_widget_scaling(SCALE)
 
-    label.pack()
-    button.pack()
+    # Initialise the app
+    app = cui("test123", "400x300");
 
-    root.mainloop()
+    #label = ctk.CTkLabel(master=app, text="Welcome to CustomTkinter", font=("Arial", 20))
+    #label.pack(padx=20, pady=20)
+
+    button = app.button("test123");
+    print(f"{app.app.winfo_width()}")
+    app.run ()
+
     return e.EXIT_SUCCESS.value
