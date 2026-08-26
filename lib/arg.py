@@ -1,12 +1,17 @@
-from sys import argv
 # Fuck PEP8
 
 # Handy little argument helper object
 class args:
-    def __init__(self, args, allowed = []):
-        self.allowed = allowed;
+    def __init__(self, args, appname = None, description = None):
         self.argv = args
         self.argc = len(args)
+        self.allowed = []
+
+        self.description = description
+        self.appname = appname
+
+    def addcheck(self, name, desc):
+        self.allowed.append([name, desc])
 
     def argc(self):
         return self.argc
@@ -21,6 +26,12 @@ class args:
             return None
 
         return part;
+
+    def __allowed(self):
+        allowed = [];
+        for pair in self.allowed:
+            allowed.append(pair[0]);
+        return allowed;
 
     # Locate start of argument in argv
     def index(self, argname):
@@ -40,7 +51,7 @@ class args:
         if (value != None):
             return value[1]
 
-        return None
+        return None;
 
     # Return boolean if an argument exists
     def hasv(self, arg):
@@ -57,6 +68,18 @@ class args:
             if (key != None):
                 arg = key[0];
 
-            if arg not in self.allowed:
+            if arg not in self.__allowed():
                 errors.append(arg)
         return errors;
+
+    def no_args(self):
+        return (self.argc == 1)
+
+    # No args where provided OR an invalid arg was provided
+    def risk(self):
+        return (len(self.check()) > 0 or self.no_args())
+
+    def help(self):
+        print(f"{self.appname} [OPTIONS]:")
+        for arg in self.allowed:
+            print(f" {arg[0]} {arg[1]}")
