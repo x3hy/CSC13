@@ -8,3 +8,8 @@ class exitcodes(Enum):
     EXIT_SUCCESS = 0
     EXIT_FALIURE = 1
     ARG_NOT_FOUND = 2
+
+
+class Theme:
+    BACKGROUND = "#ff0000"
+    FOREGROUND = "#00ff00"

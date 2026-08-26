@@ -8,6 +8,7 @@ rem better fit your system.
 @echo OFF
 
 set "scale=2.0"
+python -m pip install -r .requirements
 python "%~dp0init.py" -dpi=%dpi%
 
 pause
