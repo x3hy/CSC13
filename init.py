@@ -28,9 +28,9 @@ if (arg.hasv("-h")):
 
 
 # Handle -dpi and APP_SCALE variable
-APP_SCALE:int = 1;
+APP_SCALE:float = 1.0;
 if (arg.hasv("-dpi")):
-    APP_SCALE = int(arg.getv("-dpi"));
+    APP_SCALE = float(arg.getv("-dpi"));
 
 
 # Run the main application
