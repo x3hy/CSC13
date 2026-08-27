@@ -11,5 +11,8 @@ class exitcodes(Enum):
 
 
 class Theme:
-    background = "#ff0000"
-    foreground = "#00ff00"
+    background = "#ffffff"
+    foreground = "#000000"
+    surface = "#999999"
+    opad = 5
+    ipad = 5
