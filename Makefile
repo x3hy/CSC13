@@ -6,9 +6,3 @@ DEPS   := .requirements
 
 run: init.py
 	$(PY) $(PYARGS) $^ $(ARGS)
-
-gen:
-	$(PIP) freeze > $(DEPS)
-
-install:
-	$(PIP) install -r $(DEPS)

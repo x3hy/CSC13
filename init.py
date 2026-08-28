@@ -6,7 +6,7 @@ from sys import argv
 
 # Set up command line arguments
 arg:object = args (argv, "MyApp");
-arg.addcheck ("-dpi", "Set scale of the program");
+arg.addcheck ("--port", "Set the port for the backend");
 arg.addcheck ("-h", "Show this menu");
 
 
@@ -28,12 +28,12 @@ if (arg.hasv ("-h")):
 
 
 # Handle -dpi and APP_SCALE variable
-APP_SCALE: float = 0.0;
-if (arg.hasv ("-dpi")):
-    APP_SCALE = float (arg.getv("-dpi"));
+APP_PORT: int = 6769;
+if (arg.hasv ("--port")):
+    APP_PORT = int(arg.getv("--port"));
 
 
 # Run the main app
 if __name__ == "__main__":
-    rc: int = main (APP_SCALE);
+    rc: int = main (APP_PORT);
     exit (rc);
