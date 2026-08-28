@@ -6,9 +6,10 @@ from enum import Enum, unique
 
 @unique
 class exitcodes(Enum):
-    EXIT_SUCCESS = 0
-    EXIT_FALIURE = 1
+    EXIT_SUCCESS  = 0
+    EXIT_FALIURE  = 1
     ARG_NOT_FOUND = 2
+    PORT_IN_USE   = 3
 
 
 class Theme:

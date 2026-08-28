@@ -1,13 +1,9 @@
 import webview
-import threading
-import time
+from lib.types import exitcodes as e
 
-def background_task(window):
-    time.sleep(5)
-    window.evaluate_js('alert("Hello from Python after 5 seconds!");')
-
-if __name__ == '__main__':
-    window = webview.create_window('PyWebview Example', html='<h1>Waiting for Python…</h1>')
-    thread = threading.Thread(target=background_task, args=(window,))
-    thread.start()
+# Run UI code
+def init_frontend(PORT:int) -> int:
+    window = webview.create_window(title="", url=f"http://localhost:{PORT}")
     webview.start()
+
+    return e.EXIT_SUCCESS.value

@@ -1,0 +1,41 @@
+:root {
+	--background: white;
+	--surface: #555555;
+	--foreground: black;
+	--foreground-accent: cyan;
+
+	--pad-large: 20px;
+	--pad-norm: 10px;
+	--pad-small: 5px;
+	--pad-tiny: 2px;
+}
+
+
+#product-list {
+	background: var(--surface);
+	display: flex;
+	align-items:start;
+	flex-wrap: wrap;
+	gap: var(--pad-large);
+	padding: var(--pad-norm);
+	box-sizing:border-box;
+}
+
+
+body {
+	padding: 0px;
+	margin: 0px;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: monospace;
+}
+
+article {
+	background: blue;
+	width:fit-content;
+	height: fit-content;
+	color: var(--background);
+	padding: var(--pad-norm);
+	flex-grow: 1;
+	border: solid var(--pad-tiny) var(--foreground-surface)
+}

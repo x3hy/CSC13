@@ -1,7 +1,7 @@
 PY     := python3
 PIP    := pip
 PYARGS :=
-ARGS   := -dpi=2.0
+ARGS   := --port=2020
 DEPS   := .requirements
 
 run: init.py

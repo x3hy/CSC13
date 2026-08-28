@@ -7,6 +7,8 @@ from sys import argv
 # Set up command line arguments
 arg:object = args (argv, "MyApp");
 arg.addcheck ("--port", "Set the port for the backend");
+arg.addcheck ("--frontend-only", "ONLY run the frontend");
+arg.addcheck ("--backend-only", "ONLY run the backend");
 arg.addcheck ("-h", "Show this menu");
 
 
@@ -32,8 +34,16 @@ APP_PORT: int = 6769;
 if (arg.hasv ("--port")):
     APP_PORT = int(arg.getv("--port"));
 
+FRONTEND: bool = False
+if (arg.hasv ("--frontend-only")):
+    FRONTEND = True
+
+BACKEND: bool = False
+if (arg.hasv ("--backend-only")):
+    BACKEND = True
+
 
 # Run the main app
 if __name__ == "__main__":
-    rc: int = main (APP_PORT);
+    rc: int = main (APP_PORT, BACKEND, FRONTEND);
     exit (rc);
