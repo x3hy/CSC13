@@ -317,10 +317,11 @@ set undofile
 legacy set viminfo=!,'100,<50,s10,h
 legacy set wildmode=longest:full,full
 legacy set wildoptions=pum
+set window=50
 import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/api.vim'
 import autoload '/usr/share/vim/autoload/dist/vim9.vim'
 import autoload '/usr/share/vim/autoload/dist/ft.vim'
-import autoload '/usr/share/vim/autoload/dist/script.vim'
+# import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/vim9.vim'
 const so_save: number = &g:so | const siso_save: number = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 v:this_session = expand("<sfile>:p")
 doautoall SessionLoadPre
@@ -337,11 +338,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   wipebuf = bufnr('%')
 endif
 set shortmess+=aoO
-badd +0 con/st
+badd +0 con/src/styles.css
 argglobal
 :%argdel
-:$argadd con/st
-edit con/st
+:$argadd con/src/styles.css
+edit con/src/styles.css
 argglobal
 cpo_save = &cpo
 set cpo&vim
@@ -373,8 +374,8 @@ setlocal cinoptions=
 setlocal cinscopedecls=public,protected,private
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*\ %s\ */
+legacy setlocal comments=s1:/*,mb:*,ex:*/
+legacy setlocal commentstring=/*\ %s\ */
 setlocal complete=.,w,b,u,t,i
 setlocal completefunc=
 legacy setlocal completeopt=
@@ -395,8 +396,8 @@ setlocal equalprg=
 setlocal errorformat=
 setlocal eventignorewin=
 setlocal noexpandtab
-if &filetype != ''
-setlocal filetype=
+if &filetype != 'css'
+setlocal filetype=css
 endif
 setlocal fillchars=
 setlocal findfunc=
@@ -416,18 +417,18 @@ legacy set foldtext=gitgutter#fold#foldtext()
 legacy setlocal foldtext=gitgutter#fold#foldtext()
 setlocal formatexpr=
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-legacy setlocal formatoptions=q
+legacy setlocal formatoptions=cql
 setlocal formatprg=
 setlocal grepformat=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=
+legacy setlocal include=^\\s*@import\\s\\+\\%(url(\\)\\=
 setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+legacy setlocal indentexpr=GetCSSIndent()
+legacy setlocal indentkeys=0{,0},!^F,o,O
 setlocal noinfercase
-legacy setlocal iskeyword=@,48-57,_,192-255
+legacy setlocal iskeyword=@,48-57,_,192-255,-
 setlocal keywordprg=
 setlocal lhistory=10
 setlocal nolinebreak
@@ -446,7 +447,7 @@ legacy setlocal nrformats=bin,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=
+legacy setlocal omnifunc=csscomplete#CompleteCSS
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -478,8 +479,8 @@ setlocal statuslineopt=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != ''
-legacy setlocal syntax=
+if &syntax != 'css'
+legacy setlocal syntax=css
 endif
 setlocal tabstop=4
 legacy setlocal tagcase=
@@ -505,12 +506,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 {
-  var l: number = 1 - ((0 * winheight(0) + 12) / 24)
+  var l: number = 64 - ((28 * winheight(0) + 25) / 50)
   if l < 1 | l = 1 | endif
   keepjumps exe ":" .. l
   normal! zt
-  keepjumps :1
-  normal! 0
+  keepjumps :64
+  normal! 022|
 }
 tabnext 1
 if wipebuf != -1 && len(win_findbuf(wipebuf)) == 0

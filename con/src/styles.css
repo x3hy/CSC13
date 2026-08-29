@@ -34,6 +34,7 @@ body {
 	cursor: default;
 }
 
+
 article {
 	background: var(--surface);
 	width:fit-content;
@@ -52,6 +53,7 @@ article {
 	}
 }
 
+
 button, .buttons {
 	background: var(--foreground-accent);
 	border: none;
@@ -59,18 +61,20 @@ button, .buttons {
 	padding: var(--pad-small-alt) var(--pad-small);
 	color: var(--foreground);
 	transition: 0.1s ease-in-out all;
+	user-select: none;
 }
+
 
 button:not(.buttons button):hover, .buttons:hover {
-	background: var(--foreground-accent-alt) !important;
-	scale: 0.95;
+	background: var(--foreground-accent-alt);
 	cursor: pointer;
+	scale: 0.95;
 }
+
 
 button:not(.buttons button):active, .buttons:active {
-	scale:0.9
+	scale:0.9;
 }
-
 
 
 #cart {
