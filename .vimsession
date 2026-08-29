@@ -320,7 +320,7 @@ legacy set wildoptions=pum
 import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/api.vim'
 import autoload '/usr/share/vim/autoload/dist/vim9.vim'
 import autoload '/usr/share/vim/autoload/dist/ft.vim'
-import autoload '/usr/share/vim/autoload/dist/script.vim'
+# import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/vim9.vim'
 const so_save: number = &g:so | const siso_save: number = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 v:this_session = expand("<sfile>:p")
 doautoall SessionLoadPre
@@ -337,11 +337,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   wipebuf = bufnr('%')
 endif
 set shortmess+=aoO
-badd +0 src/st
+badd +0 .git/COMMIT_EDITMSG
 argglobal
 :%argdel
-:$argadd src/st
-edit src/st
+:$argadd .git/COMMIT_EDITMSG
+edit .git/COMMIT_EDITMSG
 argglobal
 cpo_save = &cpo
 set cpo&vim
@@ -373,8 +373,8 @@ setlocal cinoptions=
 setlocal cinscopedecls=public,protected,private
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*\ %s\ */
+legacy setlocal comments=:#
+legacy setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal completefunc=
 legacy setlocal completeopt=
@@ -395,8 +395,8 @@ setlocal equalprg=
 setlocal errorformat=
 setlocal eventignorewin=
 setlocal noexpandtab
-if &filetype != ''
-setlocal filetype=
+if &filetype != 'gitcommit'
+setlocal filetype=gitcommit
 endif
 setlocal fillchars=
 setlocal findfunc=
@@ -415,15 +415,15 @@ setlocal foldnestmax=20
 legacy set foldtext=gitgutter#fold#foldtext()
 legacy setlocal foldtext=gitgutter#fold#foldtext()
 setlocal formatexpr=
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-legacy setlocal formatoptions=q
+legacy setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}]\\s\\+\\|^\\s*[-*+]\\s\\+
+legacy setlocal formatoptions=tln
 setlocal formatprg=
 setlocal grepformat=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=
-setlocal includeexpr=
+legacy setlocal include=^+++
+legacy setlocal includeexpr=substitute(v:fname,'^[bi]/','','')
 setlocal indentexpr=
 setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal noinfercase
@@ -440,7 +440,7 @@ legacy setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
-setlocal modeline
+setlocal nomodeline
 setlocal modifiable
 legacy setlocal nrformats=bin,hex
 set number
@@ -478,17 +478,17 @@ setlocal statuslineopt=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != ''
-legacy setlocal syntax=
+if &syntax != 'gitcommit'
+legacy setlocal syntax=gitcommit
 endif
-setlocal tabstop=4
+setlocal tabstop=8
 legacy setlocal tagcase=
 setlocal tagfunc=
 setlocal tags=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=0
+setlocal textwidth=72
 setlocal thesaurus=
 setlocal thesaurusfunc=
 setlocal undofile
@@ -505,12 +505,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 {
-  var l: number = 1 - ((0 * winheight(0) + 12) / 24)
+  var l: number = 21 - ((20 * winheight(0) + 12) / 24)
   if l < 1 | l = 1 | endif
   keepjumps exe ":" .. l
   normal! zt
-  keepjumps :1
-  normal! 0
+  keepjumps :21
+  normal! 044|
 }
 tabnext 1
 if wipebuf != -1 && len(win_findbuf(wipebuf)) == 0

@@ -16,7 +16,7 @@
 
 #product-list {
 	display:grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	gap: var(--pad-large);
 	padding: var(--pad-large);
 	box-sizing:border-box;
@@ -117,8 +117,6 @@ button:not(.buttons button):active, .buttons:active {
 
 	background: var(--surface);
 	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
 }
 
 

@@ -5,20 +5,21 @@
 	<title>Products:</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 	<script src="{{ url_for('static', filename='public.js') }}" defer></script>
+	<script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
  	<div id="cart">
 		<!-- This has to prevent whitespace sadly.. -->
-		<b class="item-count">123</b> Items, totaling $<b class="price">123,321</b><span class="sep"></span><button id="cart-checkout">Checkout</button> <button id="cart-clear">Clear Cart</button>
+		<b class="item-count">123</b> Items, totaling <b class="price">123321</b><span class="sep"></span><button id="cart-checkout">Checkout</button> <button id="cart-clear">Clear Cart</button>
 	</div>
 	<div id="product-list">
 		{% if PRODUCTS is defined and PRODUCTS %}
 			{% for p in PRODUCTS %}
-				<article id="{{ p.id }}" data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}">
+				<article data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}">
 					<header>
 						<div class="other">
 							<h3>{{ p.title }} <span class="price">{{ p.price }}</span></h3>
-							<p>{{ p.description }}</p>
+							<p><i>{{ p.description }}</i></p>
 						</div>
 						<div class="buttons">
 							<button class="increase">+</button>
@@ -26,7 +27,7 @@
 							<button class="decrease">-</button>
 						</div>
 					</header>
-					<img src="{{ url_for('static', filename=p.image) }}", draggable="false", alt="{{ p.description }}">
+					<img src="{{ url_for('static', filename=p.image) }}", draggable="false", alt="{{ p.description }}" loading="lazy">
 				</article>
 			{% endfor %}
 		{% else %}

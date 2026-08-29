@@ -6,10 +6,14 @@ from os.path import abspath
 import click
 
 PRODUCTS = [
-    Product("Walls", "Sturdy non-american walls.", 12.5, -1, "img/python.png"),
-    Product("Carpet", "Awesome rug-like-carpet", 1, -1, "img/python.png"),
-    Product("Lamps", "Gay lamps", 148723.23, -1, "img/python.png"),
-    Product("Rug", "Cool carpet-like-rug", 8.008, -1, "img/python.png")
+    Product("Bathroom Tiles", "Tiles for bathroom floor", 2500, -1, "img/tiles.png"),
+    Product("Spa Bath", "Rich person shaped water containment device", 2500, -1, "img/spa.png"),
+    Product("Bathroom Tapware", "Taps knobs and all the rest of that fun stuff..", 2500, -1, "img/tapware.png"),
+    Product("TV Point A", "TV point, includes roof-mounted aerial", 250, -1, "img/aerial.png"),
+    Product("TV Point B", "TV point, includes satellite dish", 250, -1, "img/radar.png"),
+    Product("Heat Pump A", "4.5KW Heater", 2500, -1, "img/heatpump1.png"),
+    Product("Heat Pump B", "2.5KW Heater", 1800, -1, "img/heatpump2.png"),
+    #Product(-1, "img/python.png"),
 ]
 
 PRODUCTS_DICT = [product.dict() for product in PRODUCTS];
