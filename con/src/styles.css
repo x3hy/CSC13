@@ -6,11 +6,11 @@
 	--foreground-accent: #00BBFF;
 	--foreground-accent-alt: #0099CC;
 
-	--pad-large: 20px;
+	--pad-large: 17px;
 	--pad-norm: 10px;
 	--pad-small: 7px;
-	--pad-small-alt: 5px;
-	--pad-tiny: 2px;
+	--pad-tiny: 5px;
+	--pad-border: 2px;
 }
 
 
@@ -18,7 +18,7 @@
 	display:grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	gap: var(--pad-large);
-	padding: var(--pad-norm);
+	padding: var(--pad-large);
 	box-sizing:border-box;
 }
 
@@ -30,25 +30,37 @@ body {
 	margin: 0px;
 	background: var(--background);
 	color: var(--foreground);
+}
+
+
+* {
 	font-family: monospace;
 	cursor: default;
+	user-select: none;
 }
 
 
 article {
-	background: var(--surface);
-	width:fit-content;
-	height: fit-content;
-	color: var(--foreground);
+	position:relative;
+	box-sizing:border-box;
+	width:100%;
+
 	padding: var(--pad-norm);
 	border-radius: var(--pad-norm);
-	border: solid var(--pad-tiny) var(--foreground-accent);
-	width:100%;
-	box-sizing:border-box;
 
+	border: solid var(--pad-border) var(--foreground-accent);
+
+	background: var(--surface);
+	color: var(--foreground);
+
+
+	img { width:100%}
 	.buttons {
 		width:fit-content;
 		margin-top: var(--pad-small);
+		position: absolute;
+		top: 0px;
+		right: var(--pad-small);
 		button { all:unset }
 	}
 }
@@ -58,10 +70,9 @@ button, .buttons {
 	background: var(--foreground-accent);
 	border: none;
 	border-radius: var(--pad-norm);
-	padding: var(--pad-small-alt) var(--pad-small);
+	padding: var(--pad-tiny) var(--pad-small);
 	color: var(--foreground);
 	transition: 0.1s ease-in-out all;
-	user-select: none;
 }
 
 
@@ -78,14 +89,18 @@ button:not(.buttons button):active, .buttons:active {
 
 
 #cart {
+	z-index:100;
 	position: sticky;
-	top: var(--pad-norm);
+	top: var(--pad-large);
 	width: fit-content;
-	background: var(--surface);
-	border: solid var(--pad-tiny) var(--surface-alt);
+
+	margin: var(--pad-norm) var(--pad-large);
+	padding: var(--pad-tiny);
+
+	border: solid var(--pad-border) var(--surface-alt);
 	border-radius: var(--pad-small);
-	margin: var(--pad-norm);
-	padding: var(--pad-small-alt);
+
+	background: var(--surface);
 	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
 	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);

@@ -21,7 +21,7 @@
 						<h3>{{ p.title }}</h3>
 						{{ p.description }}
 					</header>
-					<img src="{{ p.image }}">
+					<img src="{{ url_for('static', filename=p.image) }}">
 					<section class="details">
 						<div class="buttons">
 							<button class="increase">+</button>
