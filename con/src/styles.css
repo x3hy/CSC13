@@ -1,12 +1,15 @@
 :root {
-	--background: grey;
-	--surface: #555555;
-	--foreground: black;
-	--foreground-accent: cyan;
+	--background: #222;
+	--surface: #333;
+	--surface-alt: #444;
+	--foreground: #fff;
+	--foreground-accent: #00BBFF;
+	--foreground-accent-alt: #0099CC;
 
 	--pad-large: 20px;
 	--pad-norm: 10px;
-	--pad-small: 5px;
+	--pad-small: 7px;
+	--pad-small-alt: 5px;
 	--pad-tiny: 2px;
 }
 
@@ -19,19 +22,23 @@
 	box-sizing:border-box;
 }
 
+h3 { margin:0px }
+header { margin-bottom: var(--pad-small) }
+
 body {
 	padding: 0px;
 	margin: 0px;
 	background: var(--background);
 	color: var(--foreground);
 	font-family: monospace;
+	cursor: default;
 }
 
 article {
 	background: var(--surface);
 	width:fit-content;
 	height: fit-content;
-	color: var(--background);
+	color: var(--foreground);
 	padding: var(--pad-norm);
 	border-radius: var(--pad-norm);
 	border: solid var(--pad-tiny) var(--foreground-accent);
@@ -39,23 +46,43 @@ article {
 	box-sizing:border-box;
 
 	.buttons {
-		display:inline;
+		width:fit-content;
+		margin-top: var(--pad-small);
+		button { all:unset }
 	}
 }
 
-
-button {
-	border-radius: 0px;
-	background: var(--foreground);
-	color: var(--background);
-	padding: var(--pad-tiny);
-	margin: var(--pad-small);
+button, .buttons {
+	background: var(--foreground-accent);
+	border: none;
+	border-radius: var(--pad-norm);
+	padding: var(--pad-small-alt) var(--pad-small);
+	color: var(--foreground);
+	transition: 0.1s ease-in-out all;
 }
+
+button:not(.buttons button):hover, .buttons:hover {
+	background: var(--foreground-accent-alt) !important;
+	scale: 0.95;
+	cursor: pointer;
+}
+
+button:not(.buttons button):active, .buttons:active {
+	scale:0.9
+}
+
+
 
 #cart {
 	position: sticky;
-	top:0;
-	left: 0;
-	background: var(--background);
-	padding: var(--pad-norm);
-
+	top: var(--pad-norm);
+	width: fit-content;
+	background: var(--surface);
+	border: solid var(--pad-tiny) var(--surface-alt);
+	border-radius: var(--pad-small);
+	margin: var(--pad-norm);
+	padding: var(--pad-small-alt);
+	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+}

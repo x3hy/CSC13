@@ -317,11 +317,10 @@ set undofile
 legacy set viminfo=!,'100,<50,s10,h
 legacy set wildmode=longest:full,full
 legacy set wildoptions=pum
-set window=43
 import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/api.vim'
 import autoload '/usr/share/vim/autoload/dist/vim9.vim'
 import autoload '/usr/share/vim/autoload/dist/ft.vim'
-# import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/vim9.vim'
+import autoload '/usr/share/vim/autoload/dist/script.vim'
 const so_save: number = &g:so | const siso_save: number = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 v:this_session = expand("<sfile>:p")
 doautoall SessionLoadPre
@@ -338,11 +337,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   wipebuf = bufnr('%')
 endif
 set shortmess+=aoO
-badd +0 run_win32.bat
+badd +0 con/st
 argglobal
 :%argdel
-:$argadd run_win32.bat
-edit run_win32.bat
+:$argadd con/st
+edit con/st
 argglobal
 cpo_save = &cpo
 set cpo&vim
@@ -374,8 +373,8 @@ setlocal cinoptions=
 setlocal cinscopedecls=public,protected,private
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-legacy setlocal comments=b:rem,b:@rem,b:REM,b:@REM
-legacy setlocal commentstring=REM\ %s
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*\ %s\ */
 setlocal complete=.,w,b,u,t,i
 setlocal completefunc=
 legacy setlocal completeopt=
@@ -396,8 +395,8 @@ setlocal equalprg=
 setlocal errorformat=
 setlocal eventignorewin=
 setlocal noexpandtab
-if &filetype != 'dosbatch'
-setlocal filetype=dosbatch
+if &filetype != ''
+setlocal filetype=
 endif
 setlocal fillchars=
 setlocal findfunc=
@@ -417,7 +416,7 @@ legacy set foldtext=gitgutter#fold#foldtext()
 legacy setlocal foldtext=gitgutter#fold#foldtext()
 setlocal formatexpr=
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-legacy setlocal formatoptions=qrol
+legacy setlocal formatoptions=q
 setlocal formatprg=
 setlocal grepformat=
 setlocal grepprg=
@@ -425,8 +424,8 @@ setlocal iminsert=0
 setlocal imsearch=-1
 setlocal include=
 setlocal includeexpr=
-legacy setlocal indentexpr=GetDosBatchIndent(v:lnum)
-legacy setlocal indentkeys=!^F,o,O,0=)
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal noinfercase
 legacy setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -479,8 +478,8 @@ setlocal statuslineopt=
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'dosbatch'
-legacy setlocal syntax=dosbatch
+if &syntax != ''
+legacy setlocal syntax=
 endif
 setlocal tabstop=4
 legacy setlocal tagcase=
@@ -506,11 +505,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 {
-  var l: number = 27 - ((26 * winheight(0) + 21) / 43)
+  var l: number = 1 - ((0 * winheight(0) + 12) / 24)
   if l < 1 | l = 1 | endif
   keepjumps exe ":" .. l
   normal! zt
-  keepjumps :27
+  keepjumps :1
   normal! 0
 }
 tabnext 1

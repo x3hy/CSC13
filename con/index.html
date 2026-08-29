@@ -3,8 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Products:</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-	<link rel="stylesheet" href="src/styles.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 	<script src="{{ url_for('static', filename='public.js') }}" defer></script>
 </head>
 <body>
@@ -19,7 +18,8 @@
 			{% for p in PRODUCTS %}
 				<article id="{{ p.id }}" data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}">
 					<header>
-						<p>{{ p.title }}</p>
+						<h3>{{ p.title }}</h3>
+						{{ p.description }}
 					</header>
 					<img src="{{ p.image }}">
 					<section class="details">
@@ -28,7 +28,6 @@
 							<span class="total">0</span>
 							<button class="decrease">-</button>
 						</div>
-						{{ p.description }}
 					</section>
 				</article>
 			{% endfor %}
