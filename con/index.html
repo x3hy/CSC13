@@ -5,20 +5,31 @@
 	<title>Products:</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 	<link rel="stylesheet" href="src/styles.css">
+	<script src="{{ url_for('static', filename='public.js') }}" defer></script>
 </head>
 <body>
+ 	<div id="cart">
+		<b class="item-count">123</b> Items,
+		totaling $<b class="price">123,321</b>
+		<button id="cart-checkout">Checkout</button>
+		<button id="cart-clear">Clear Cart</button>
+	</div>
 	<div id="product-list">
 		{% if PRODUCTS is defined and PRODUCTS %}
 			{% for p in PRODUCTS %}
-				<article data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}">
+				<article id="{{ p.id }}" data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}">
 					<header>
 						<p>{{ p.title }}</p>
 					</header>
 					<img src="{{ p.image }}">
-					<details>
-						<summary>More</summary>
+					<section class="details">
+						<div class="buttons">
+							<button class="increase">+</button>
+							<span class="total">0</span>
+							<button class="decrease">-</button>
+						</div>
 						{{ p.description }}
-					</details>
+					</section>
 				</article>
 			{% endfor %}
 		{% else %}

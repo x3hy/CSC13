@@ -1,5 +1,5 @@
 :root {
-	--background: white;
+	--background: grey;
 	--surface: #555555;
 	--foreground: black;
 	--foreground-accent: cyan;
@@ -12,15 +12,12 @@
 
 
 #product-list {
-	background: var(--surface);
-	display: flex;
-	align-items:start;
-	flex-wrap: wrap;
+	display:grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	gap: var(--pad-large);
 	padding: var(--pad-norm);
 	box-sizing:border-box;
 }
-
 
 body {
 	padding: 0px;
@@ -31,11 +28,34 @@ body {
 }
 
 article {
-	background: blue;
+	background: var(--surface);
 	width:fit-content;
 	height: fit-content;
 	color: var(--background);
 	padding: var(--pad-norm);
-	flex-grow: 1;
-	border: solid var(--pad-tiny) var(--foreground-surface)
+	border-radius: var(--pad-norm);
+	border: solid var(--pad-tiny) var(--foreground-accent);
+	width:100%;
+	box-sizing:border-box;
+
+	.buttons {
+		display:inline;
+	}
 }
+
+
+button {
+	border-radius: 0px;
+	background: var(--foreground);
+	color: var(--background);
+	padding: var(--pad-tiny);
+	margin: var(--pad-small);
+}
+
+#cart {
+	position: sticky;
+	top:0;
+	left: 0;
+	background: var(--background);
+	padding: var(--pad-norm);
+
