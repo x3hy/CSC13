@@ -8,27 +8,25 @@
 </head>
 <body>
  	<div id="cart">
-		<b class="item-count">123</b> Items,
-		totaling $<b class="price">123,321</b>
-		<button id="cart-checkout">Checkout</button>
-		<button id="cart-clear">Clear Cart</button>
+		<!-- This has to prevent whitespace sadly.. -->
+		<b class="item-count">123</b> Items, totaling $<b class="price">123,321</b><span class="sep"></span><button id="cart-checkout">Checkout</button> <button id="cart-clear">Clear Cart</button>
 	</div>
 	<div id="product-list">
 		{% if PRODUCTS is defined and PRODUCTS %}
 			{% for p in PRODUCTS %}
 				<article id="{{ p.id }}" data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}">
 					<header>
-						<h3>{{ p.title }}</h3>
-						{{ p.description }}
-					</header>
-					<img src="{{ url_for('static', filename=p.image) }}">
-					<section class="details">
+						<div class="other">
+							<h3>{{ p.title }} <span class="price">{{ p.price }}</span></h3>
+							<p>{{ p.description }}</p>
+						</div>
 						<div class="buttons">
 							<button class="increase">+</button>
 							<span class="total">0</span>
 							<button class="decrease">-</button>
 						</div>
-					</section>
+					</header>
+					<img src="{{ url_for('static', filename=p.image) }}", draggable="false", alt="{{ p.description }}">
 				</article>
 			{% endfor %}
 		{% else %}

@@ -12,9 +12,23 @@ class exitcodes(Enum):
     PORT_IN_USE   = 3
 
 
-class Theme:
-    background = "#ffffff"
-    foreground = "#000000"
-    surface = "#999999"
-    opad = 5
-    ipad = 5
+class Product:
+    def __init__(self, title, desc, price, maxamount, image):
+        self.title = title
+        self.desc = desc
+        self.price = price
+        self.maxamount = maxamount
+        self.image = image
+
+    # Return the item as a dict
+    def dict(self):
+        return {
+            "title": self.title,
+            "desc": self.desc,
+
+            # For compatability
+            "description": self.desc,
+            "price": self.price,
+            "maxamount": self.maxamount,
+            "image": self.image,
+        }

@@ -22,10 +22,12 @@
 	box-sizing:border-box;
 }
 
-h3 { margin:0px }
+h3, p { margin:0px }
 header { margin-bottom: var(--pad-small) }
 
+html {font-size: 100%}
 body {
+	font-size: 1rem;
 	padding: 0px;
 	margin: 0px;
 	background: var(--background);
@@ -53,15 +55,28 @@ article {
 	background: var(--surface);
 	color: var(--foreground);
 
+	header {
+		display:flex;
+		.other {
+			width:100%;
+			.price {
+				font-weight: normal;
+				font-size: 1rem;
+				font-style: italic;
+				opacity: 0.75;
+				&:hover { opacity: 1 }
+			}
+			
+			p { margin-top: var(--pad-border)}
+		}
+	}
 
 	img { width:100%}
 	.buttons {
-		width:fit-content;
-		margin-top: var(--pad-small);
-		position: absolute;
-		top: 0px;
-		right: var(--pad-small);
+		height:fit-content;
+		text-wrap: nowrap;
 		button { all:unset }
+		margin-left: var(--pad-norm);
 	}
 }
 
@@ -104,4 +119,14 @@ button:not(.buttons button):active, .buttons:active {
 	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
 	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+}
+
+
+.sep {
+	all: unset;
+	display: inline;
+	height: 100%;
+	border-left: solid var(--pad-border) var(--background);
+	width:10px;
+	margin: var(--pad-norm);
 }

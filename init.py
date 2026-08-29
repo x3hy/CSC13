@@ -2,6 +2,7 @@ from lib.arg import args
 from lib.types import exitcodes as e
 from lib.main import main
 from sys import argv
+import socket
 
 
 # Set up command line arguments
@@ -33,6 +34,12 @@ if (arg.hasv ("-h")):
 APP_PORT: int = 6769;
 if (arg.hasv ("--port")):
     APP_PORT = int(arg.getv("--port"));
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    if (s.connect_ex(("localhost", APP_PORT)) == 0):
+        print(f"Port {APP_PORT} already in use..")
+        arg.help()
+        exit (e.EXIT_FALIURE.value)
 
 FRONTEND: bool = False
 if (arg.hasv ("--frontend-only")):
