@@ -320,7 +320,6 @@ legacy set wildoptions=pum
 import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/api.vim'
 import autoload '/usr/share/vim/autoload/dist/vim9.vim'
 import autoload '/usr/share/vim/autoload/dist/ft.vim'
-# import autoload '/home/_3hy/.vim/plugged/coc.nvim/autoload/coc/vim9.vim'
 const so_save: number = &g:so | const siso_save: number = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 v:this_session = expand("<sfile>:p")
 doautoall SessionLoadPre
@@ -505,12 +504,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 {
-  var l: number = 21 - ((20 * winheight(0) + 12) / 24)
+  var l: number = 11 - ((10 * winheight(0) + 15) / 31)
   if l < 1 | l = 1 | endif
   keepjumps exe ":" .. l
   normal! zt
-  keepjumps :21
-  normal! 044|
+  keepjumps :11
+  normal! 0
 }
 tabnext 1
 if wipebuf != -1 && len(win_findbuf(wipebuf)) == 0
