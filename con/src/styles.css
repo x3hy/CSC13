@@ -77,7 +77,10 @@ article {
 	.buttons {
 		height:fit-content;
 		text-wrap: nowrap;
-		button { all:unset }
+		button {
+			all:unset;
+			padding: 0px var(--pad-norm);
+		}
 		margin-left: var(--pad-norm);
 	}
 }
@@ -91,6 +94,8 @@ button, .buttons {
 	color: var(--foreground);
 	transition: 0.1s ease-in-out all;
 }
+
+button { margin-right: var(--pad-norm); }
 
 button.alt {
 	font-family: monospace;

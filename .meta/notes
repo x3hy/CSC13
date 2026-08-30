@@ -1,4 +1,34 @@
-The cart area shows the selected items efficently but it does not allow you to
-change quantitys of values within the receipt. This is a QOL feature that
-should be implemented. Please check 31-08-3.png, now rows can be clicked to
-remove them from the cart
+The cart area shows the selected items efficently but it does not
+allow you to change quantitys of values within the receipt. This is a
+QOL feature that should be implemented. Please check 31-08-3.png, now
+rows can be clicked to remove them from the cart
+
+After platform testing it was found that windows does not launch the
+pywebview, this can be solved by simply removing the extra
+non-required flags. The next issue is that on Windows, Python path
+locations do not work the same way on Windows and UNIX.
+
+Take for example the following fs: files/ file123.txt libs/ lib.py
+init.py
+
+on Unix, if init.py imports a function from lib.py and that file
+happens to look for the abspath of files/file123.txt, it will find it
+with no problems.  This is because on UNIX, included files still use
+the root working directory of the parent file.
+
+However in Windows systems, the working directory of included
+functions is actually in the same abspath as the included file. so if
+the function from before ran on windows, it would look for
+libs/files/file123.txt which does not exist..
+
+This will require platform specific tuning.
+
+------
+
+
+In the cart area, make sure the buttons are always at the same
+position regardless of size, this can be done by either moving the
+buttons to the FRONT of the row OR this can be done using a
+transparent table.
+
+

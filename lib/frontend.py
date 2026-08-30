@@ -8,9 +8,6 @@ def init_frontend(PORT:int) -> int:
     window = webview.create_window(title="",
         url=f"http://localhost:{PORT}",
         background_color="#222",
-        min_size=(300, 500),
-        frameless=True,
-        shadow=True,
         confirm_close=True)
 
     webview.start()

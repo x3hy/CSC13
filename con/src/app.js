@@ -42,14 +42,17 @@ function update_cart(){
 		// Create rows in receipt
 		if (q["quant"] != 0){
 			const item = document.createElement("p");
-			item.innerHTML = `x${q["quant"]} ${q["title"]} <i>(${format_price(q["quant"] *  q["price"])})</i>`
-			cart_list.appendChild(item);
-
 			const btn_dec = document.createElement("button");
-			btn_dec.innerText = "-";
-
 			const btn_inc = document.createElement("button");
-			btn_inc.innerText = "+";
+			const rest = document.createElement("span");
+
+			btn_dec.innerText = "-1";
+			btn_inc.innerText = "+1";
+			rest.innerHTML = `<span class="sep"></span>x${q["quant"]} ${q["title"]} <i>(${format_price(q["quant"] *  q["price"])})</i>`
+
+			item.appendChild(btn_inc);
+			item.appendChild(btn_dec);
+			item.appendChild(rest);
 
 			btn_dec.addEventListener("click", () => {
 				quants[i]["quant"]--;
@@ -61,9 +64,7 @@ function update_cart(){
 				update_cart();
 			});
 
-			item.appendChild(btn_dec);
-			item.innerHTML += "<span class=\"sep\"></span>";
-			item.appendChild(btn_inc);
+			cart_list.appendChild(item);
 		}
 	})
 }
