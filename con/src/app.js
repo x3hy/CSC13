@@ -1,6 +1,7 @@
 const cart = document.getElementById("cart");
 const cart_checkout = document.getElementById("cart-checkout");
 const cart_clear = document.getElementById("cart-clear");
+const cart_list = document.getElementById("receipt");
 const prod = document.getElementById("product-list");
 
 // Quantitys are kept in here
@@ -22,9 +23,9 @@ cart_clear.addEventListener("click", () => {
 function update_cart(){
 	// Sum prices*quantitys accross all elements
 	const cost = cart.getElementsByClassName("price")[0];
-	cost.innerText = quants.reduce((sum, item) =>
+	cost.innerText = format_price(quants.reduce((sum, item) =>
 			sum + (item.quant*item.price)
-		, 0);
+		, 0));
 
 	// Sum the quantitys
 	cart.getElementsByClassName("item-count")[0]
@@ -32,8 +33,13 @@ function update_cart(){
 			sum + item.quant
 		, 0);
 
-	// Format the price correctly (public.js)
-	format_element_price(cost);
+	cart_list.innerHTML = ""
+	quants.forEach(q=>{
+		if (q["quant"] != 0)
+			cart_list.innerHTML +=
+				`<p>x${q["quant"]} ${q["title"]} <i>(${format_price(q["quant"] *  q["price"])})</i></p>`
+	})
+
 	return;
 }
 
@@ -55,7 +61,8 @@ prod.querySelectorAll("article").forEach((el, i) => {
 	quants.push({
 		"quant": 0,
 		"price": parseFloat(el.getAttribute("data-price")),
-		"element": el
+		"element": el,
+		"title": el.getAttribute("data-title")
 	});
 
 	// Incriment total cost
