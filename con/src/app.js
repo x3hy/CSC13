@@ -1,23 +1,78 @@
-/*
-{% if PRODUCTS is defined and PRODUCTS %}
-	{% for p in PRODUCTS %}
-		<article data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}">
-			<header>
-				<div class="other">
-					<h3>{{ p.title }} <span class="price">{{ p.price }}</span></h3>
-					<p>{{ p.description }}</p>
-				</div>
-				<div class="buttons">
-					<button class="increase">+</button>
-					<span class="total">0</span>
-					<button class="decrease">-</button>
-				</div>
-			</header>
-			<img src="{{ url_for('static', filename=p.image) }}", draggable="false", alt="{{ p.description }}">
-		</article>
-	{% endfor %}
-*/
-
 const cart = document.getElementById("cart");
+const cart_checkout = document.getElementById("cart-checkout");
+const cart_clear = document.getElementById("cart-clear");
 const prod = document.getElementById("product-list");
-prod.querySelectorAll("article")
+
+// Quantitys are kept in here
+let quants = [];
+
+// Clear all of the quantitys in the array
+cart_clear.addEventListener("click", () => {
+	quants.forEach(q => {
+		q["quant"] = 0;
+		q["element"].getElementsByClassName("total")[0]
+			.innerText = 0;
+	});
+	
+	update_cart();
+	return;
+});
+
+// Updates the total items and total price in the cart
+function update_cart(){
+	// Sum prices*quantitys accross all elements
+	const cost = cart.getElementsByClassName("price")[0];
+	cost.innerText = quants.reduce((sum, item) =>
+			sum + (item.quant*item.price)
+		, 0);
+
+	// Sum the quantitys
+	cart.getElementsByClassName("item-count")[0]
+		.innerText = quants.reduce((sum, item) =>
+			sum + item.quant
+		, 0);
+
+	// Format the price correctly (public.js)
+	format_element_price(cost);
+	return;
+}
+
+
+// Provide styles for individual product components
+prod.querySelectorAll("article").forEach((el, i) => {
+	const quant_max = Number(el.getAttribute("data-max-amount"));
+	const btn_inc = el.getElementsByClassName("increase")[0];
+	const btn_dec = el.getElementsByClassName("decrease")[0];
+	const quant_val = el.getElementsByClassName("total")[0];
+
+	// Update the individual components amount
+	function update_quant(){
+		quant_val.innerText = quants[i]["quant"];
+		update_cart();
+	}
+
+	// Create a new indice in the array
+	quants.push({
+		"quant": 0,
+		"price": parseFloat(el.getAttribute("data-price")),
+		"element": el
+	});
+
+	// Incriment total cost
+	btn_inc.addEventListener("click", () => {
+		if (quant_max != -1 && quant_max <= quants[i]["quant"])
+			return;
+
+		quants[i]["quant"]++;
+		update_quant();
+	});
+
+	// Decriment quantity if its above 0
+	btn_dec.addEventListener("click", () => {
+		if (quants[i]["quant"] > 0){
+			quants[i]["quant"]--;
+			update_quant();
+			return;
+		}
+	});
+})

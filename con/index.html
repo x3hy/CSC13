@@ -10,7 +10,7 @@
 <body>
  	<div id="cart">
 		<!-- This has to prevent whitespace sadly.. -->
-		<b class="item-count">123</b> Items, totaling <b class="price">123321</b><span class="sep"></span><button id="cart-checkout">Checkout</button> <button id="cart-clear">Clear Cart</button>
+		<b class="item-count">0</b> Items, totaling <b class="price">0</b><span class="sep"></span><button id="cart-checkout">Checkout</button> <button id="cart-clear">Clear Cart</button>
 	</div>
 	<div id="product-list">
 		{% if PRODUCTS is defined and PRODUCTS %}
@@ -22,7 +22,7 @@
 							<p><i>{{ p.description }}</i></p>
 						</div>
 						<div class="buttons">
-							<button class="increase">+</button>
+							<button class="increase alt">+</button>
 							<span class="total">0</span>
 							<button class="decrease">-</button>
 						</div>

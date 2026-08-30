@@ -6,6 +6,9 @@
 	--foreground-accent: #00BBFF;
 	--foreground-accent-alt: #0099CC;
 
+	--start-font: 1.3rem;
+	--grid-item-size: 250px;
+
 	--pad-large: 17px;
 	--pad-norm: 10px;
 	--pad-small: 7px;
@@ -16,7 +19,7 @@
 
 #product-list {
 	display:grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-size), 1fr));
 	gap: var(--pad-large);
 	padding: var(--pad-large);
 	box-sizing:border-box;
@@ -27,7 +30,6 @@ header { margin-bottom: var(--pad-small) }
 
 html {font-size: 100%}
 body {
-	font-size: 1rem;
 	padding: 0px;
 	margin: 0px;
 	background: var(--background);
@@ -36,9 +38,9 @@ body {
 
 
 * {
-	font-family: monospace;
+	font-size: var(--start-font);
+	font-family: 'Aerial';
 	cursor: default;
-	user-select: none;
 }
 
 
@@ -88,6 +90,10 @@ button, .buttons {
 	padding: var(--pad-tiny) var(--pad-small);
 	color: var(--foreground);
 	transition: 0.1s ease-in-out all;
+}
+
+button.alt {
+	font-family: monospace;
 }
 
 

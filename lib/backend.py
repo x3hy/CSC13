@@ -12,7 +12,7 @@ PRODUCTS = [
     Product("TV Point A", "TV point, includes roof-mounted aerial", 250, -1, "img/aerial.png"),
     Product("TV Point B", "TV point, includes satellite dish", 250, -1, "img/radar.png"),
     Product("Heat Pump A", "4.5KW Heater", 2500, -1, "img/heatpump1.png"),
-    Product("Heat Pump B", "2.5KW Heater", 1800, -1, "img/heatpump2.png"),
+    Product("Heat Pump B", "2.5KW Heater, Max quantity: 3", 1800, 3, "img/heatpump2.png"),
     #Product(-1, "img/python.png"),
 ]
 
