@@ -1,0 +1,4 @@
+The cart area shows the selected items efficently but it does not allow you to
+change quantitys of values within the receipt. This is a QOL feature that
+should be implemented. Please check 31-08-3.png, now rows can be clicked to
+remove them from the cart
