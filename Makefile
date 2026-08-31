@@ -6,3 +6,4 @@ DEPS   := .requirements
 
 run: init.py
 	$(PY) $(PYARGS) $^ $(ARGS)
+
