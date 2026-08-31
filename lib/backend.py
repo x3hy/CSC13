@@ -1,8 +1,9 @@
 from flask import Flask, render_template
+from logging import getLogger, ERROR
 from lib.types import exitcodes as e
 from lib.types import Product
-from logging import getLogger, ERROR
 from os.path import abspath
+from os import name as platform
 import click
 
 PRODUCTS = [
@@ -22,6 +23,14 @@ PRODUCTS_DICT = [product.dict() for product in PRODUCTS];
 def init_backend(PORT:int) -> int:
     template_dir = abspath("./templates/")
     static_dir = abspath("./templates/src")
+
+    if (platform == "nt"):
+        template_dir = abspath("templates")
+        static_dir = abspath(f"{template_dir}/src")
+
+    print("Using templates: " + template_dir)
+    print("Using static: " + static_dir)
+
     app = Flask(__name__, template_folder = template_dir, static_folder = static_dir)
 
     # Disable caching of templates

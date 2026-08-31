@@ -4,7 +4,6 @@ from lib.main import main
 from sys import argv
 import socket
 
-
 # Set up command line arguments
 arg:object = args (argv, "MyApp");
 arg.addcheck ("--port", "Set the port for the backend");
@@ -19,19 +18,19 @@ if len (arg.check()):
 
     print ();
     for a in arg.check():
-        print ("Option not found: " + a);
+        print ("Option not found: " + a)
 
-    exit (e.ARG_NOT_FOUND.value);
+    exit (e.ARG_NOT_FOUND.value)
 
 
 # Behavior for the -h flag
 if (arg.hasv ("-h")):
     arg.help ();
-    exit (e.EXIT_SUCCESS.value);
+    exit (e.EXIT_SUCCESS.value)
 
 
 # Handle -dpi and APP_SCALE variable
-APP_PORT: int = 6769;
+APP_PORT: int = 8072
 if (arg.hasv ("--port")):
     APP_PORT = int(arg.getv("--port"));
 
@@ -39,7 +38,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     if (s.connect_ex(("localhost", APP_PORT)) == 0):
         print(f"Port {APP_PORT} already in use..")
         arg.help()
-        exit (e.EXIT_FALIURE.value)
+        #exit (e.EXIT_FALIURE.value)
 
 FRONTEND: bool = False
 if (arg.hasv ("--frontend-only")):
@@ -53,4 +52,4 @@ if (arg.hasv ("--backend-only")):
 # Run the main app
 if __name__ == "__main__":
     rc: int = main (APP_PORT, BACKEND, FRONTEND);
-    exit (rc);
+    exit (rc)
