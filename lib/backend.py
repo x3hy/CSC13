@@ -7,26 +7,32 @@ from os import name as platform
 import click
 
 PRODUCTS = [
-    Product("Bathroom Tiles", "Tiles for bathroom floor", 2500, -1, "img/tiles.png"),
-    Product("Spa Bath", "Rich person shaped water containment device", 2500, -1, "img/spa.png"),
-    Product("Bathroom Tapware", "Taps knobs and all the rest of that fun stuff..", 2500, -1, "img/tapware.png"),
-    Product("TV Point A", "TV point, includes roof-mounted aerial", 250, -1, "img/aerial.png"),
-    Product("TV Point B", "TV point, includes satellite dish", 250, -1, "img/radar.png"),
-    Product("Heat Pump A", "4.5KW Heater", 2500, -1, "img/heatpump1.png"),
+    Product("Bathroom Tiles", "Tiles for bathroom floor", 2500, 1, "img/tiles.png"),
+    Product("Spa Bath", "Rich person shaped water containment device", 2500, 1, "img/spa.png"),
+    Product("Bathroom Tapware", "Taps knobs and all the rest of that fun stuff..", 2500, 1, "img/tapware.png"),
+    Product("TV Point A", "TV point, includes roof-mounted aerial", 250, 1, "img/aerial.png"),
+    Product("TV Point B", "TV point, includes satellite dish", 250, 1, "img/radar.png"),
+    Product("Heat Pump A", "4.5KW Heater", 2500, 1, "img/heatpump1.png"),
     Product("Heat Pump B", "2.5KW Heater, Max quantity: 3", 1800, 3, "img/heatpump2.png"),
     #Product(-1, "img/python.png"),
 ]
 
 PRODUCTS_DICT = [product.dict() for product in PRODUCTS];
+for index, product in enumerate(PRODUCTS_DICT):
+    product.id = index
 
 # Backend stuff
 def init_backend(PORT:int) -> int:
     template_dir = abspath("./templates/")
     static_dir = abspath("./templates/src")
 
+
+    # Check if platform is DOS
     if (platform == "nt"):
+        print("Detected DOS platform")
         template_dir = abspath("templates")
         static_dir = abspath(f"{template_dir}/src")
+
 
     print("Using templates: " + template_dir)
     print("Using static: " + static_dir)
@@ -35,6 +41,7 @@ def init_backend(PORT:int) -> int:
 
     # Disable caching of templates
     app.config['TEMPLATES_AUTO_RELOAD'] = True
+
 
     # Disable flask output
     log = getLogger("werkzeug");
@@ -45,6 +52,7 @@ def init_backend(PORT:int) -> int:
     def echo(text, file=None, nl=None, err=None, color=None, **styles):
         pass
 
+
     # Redirect logging to blank functions (disabling initial output)
     click.echo = echo
     click.secho = secho
@@ -54,8 +62,9 @@ def init_backend(PORT:int) -> int:
     @app.route("/")
     def homepage():
         print("Connection to /");
-        products = [];
+        print(PRODUCTS_DICT)
         return render_template("index.html", PRODUCTS = PRODUCTS_DICT)
+
 
     print("Started backend server");
     app.run(port=PORT)

@@ -63,17 +63,6 @@ body {
 			font-style: italic;
 			opacity: 0.75;
 		}
-	
-		.buttons {
-			height:fit-content;
-			text-wrap: nowrap;
-			margin-left: var(--pad-norm);
-		}
-
-		button {
-			all:unset;
-			padding: 0px var(--pad-norm);
-		}
 	}
 }
 
@@ -85,6 +74,18 @@ button, .buttons {
 	color: var(--foreground);
 	transition: 0.1s ease-in-out all;
 	max-height: 95%;
+}
+
+.buttons {
+	height:fit-content;
+	text-wrap: nowrap;
+	margin-left: var(--pad-norm);
+	width:fit-content;
+	display:inline;
+	button {
+		all:unset;
+		padding: 0px var(--pad-norm);
+	}
 }
 
 button:not(.buttons button):hover, .buttons:hover {

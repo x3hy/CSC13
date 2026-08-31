@@ -30,5 +30,5 @@ class Product:
             "description": self.desc,
             "price": self.price,
             "maxamount": self.maxamount,
-            "image": self.image,
+            "image": str(self.image)
         }

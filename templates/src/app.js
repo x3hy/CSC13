@@ -32,21 +32,45 @@ function update_receipt(){
 		// Create rows in receipt
 		if (q["quant"] != 0){
 			const item = document.createElement("p");
+			const buttons = document.createElement("div");
 			const btn_dec = document.createElement("button");
 			const btn_inc = document.createElement("button");
+			const btn_val = document.createElement("span");
 			const rest = document.createElement("span");
+			const hr = document.createElement("hr");
+
+			/*
+			item:
+				hr
+				buttons:
+					btn_dec
+					btn_val
+					btn_inc
+				rest:
+					...
+			*/
+
+
+			btn_val.classList.add("total");
+			buttons.classList.add("buttons");
+			btn_val.innerText = q["quant"];
+			btn_dec.innerText = "-";
+			btn_inc.innerText = "+";
+
 			const ele_title = q["element"].getAttribute("data-title");
+			rest.innerHTML = `<span class="sep"></span>${ele_title} <i>(${format_price(q["quant"] *  q["price"])})</i>	`
 
-			btn_dec.innerText = "-1";
-			btn_inc.innerText = "+1";
-			rest.innerHTML = `<span class="sep"></span>x${q["quant"]} ${ele_title} <i>(${format_price(q["quant"] *  q["price"])})</i><hr>`
+			btn_dec.addEventListener("click", () => update_cart(i, -1));
+			btn_inc.addEventListener("click", () => update_cart(i, +1));
 
-			btn_dec.addEventListener("click", ()=> update_cart(i, -1));
-			btn_inc.addEventListener("click", ()=> update_cart(i, +1));
-
-			item.appendChild(btn_inc);
-			item.appendChild(btn_dec);
+			buttons.appendChild(btn_inc);
+			buttons.appendChild(btn_val);
+			buttons.appendChild(btn_dec);
+			
+			item.appendChild(hr);
+			item.appendChild(buttons);
 			item.appendChild(rest);
+
 			cart_list.appendChild(item);
 		}
 	})
