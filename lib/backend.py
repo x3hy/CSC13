@@ -20,8 +20,8 @@ PRODUCTS_DICT = [product.dict() for product in PRODUCTS];
 
 # Backend stuff
 def init_backend(PORT:int) -> int:
-    template_dir = abspath("./con/")
-    static_dir = abspath("./con/src")
+    template_dir = abspath("./templates/")
+    static_dir = abspath("./templates/src")
     app = Flask(__name__, template_folder = template_dir, static_folder = static_dir)
 
     # Disable caching of templates
