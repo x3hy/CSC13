@@ -11,9 +11,10 @@ from lib.backend import init_backend
 
 # Manages frontend-backend lifetime sync (frontend priority)
 def main(PORT: int, ISOLATEBACKEND:bool, ISOLATEFRONTEND:bool) -> int:
+    print(f"Using port {PORT}");
     if (ISOLATEBACKEND):
-        print("Only running backend")
-        init_backend(PORT)
+        print("Only running backend");
+        init_backend(PORT);
 
     if (ISOLATEFRONTEND):
         print("Only running frontend")

@@ -11,8 +11,8 @@
 	--pad-norm: 15px;
 	--pad-small: 7px;
 	--pad-tiny: 5px;
-	--pad-border: 2px;
-	--pad-radius: 25px;
+	--pad-border: 3px;
+	--pad-radius: 20px;
 }
 
 html {font-size: 100%}
@@ -100,8 +100,8 @@ button:not(.buttons button):hover, .buttons:hover {
 		border-radius: 0px;
 		background: var(--background);
 		border: solid var(--pad-border) var(--surface-alt);
-		width:15px;
-		height:15px;
+		width:25px;
+		height:25px;
 		transition: all 0.1s ease-in-out;
 	}
 

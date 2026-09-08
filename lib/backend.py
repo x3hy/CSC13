@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_cors import CORS
 from logging import getLogger, ERROR
 from lib.types import exitcodes as e
 from lib.types import Product, Catagory
@@ -54,6 +55,7 @@ def init_backend(PORT:int) -> int:
     print("Using static: " + static_dir)
 
     app = Flask(__name__, template_folder = template_dir, static_folder = static_dir)
+    CORS = CORS(app);
 
     # Disable caching of templates
     app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -78,6 +80,14 @@ def init_backend(PORT:int) -> int:
         print(PRODUCTS_DICT)
         return render_template("index.html", PRODUCTS = PRODUCTS_DICT)
 
+    @app.route('/checkout', methods = ['POST'])
+    def checkout():
+        print("checkout");
+        if (request.method == "POST"):
+            print(request.form);
+        else:
+            # Invalid method
+            return "Invalid Method", 405
 
     print("Started backend server");
     app.run(port=PORT)

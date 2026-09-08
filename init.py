@@ -1,3 +1,4 @@
+#!/bin/python3
 from lib.arg import args
 from lib.types import exitcodes as e
 from lib.main import main
@@ -39,6 +40,7 @@ if (arg.hasv ("--port")):
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     if (s.connect_ex(("localhost", APP_PORT)) == 0):
         print(f"Port {APP_PORT} already in use..")
+
         arg.help()
         #exit (e.EXIT_FALIURE.value)
 

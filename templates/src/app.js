@@ -24,6 +24,27 @@ cart_clear.addEventListener("click", () => {
 });
 
 
+// Send quants to the server
+cart_checkout.addEventListener("click", async () => {
+	try {
+		const resp = await fetch("http://127.0.0.1:8072/checkout", {
+			method: "POST",
+			headers: {
+				"Content-Type" : "application/json"
+			},
+		body: JSON.stringify(quants)});
+
+		if (!resp.ok)
+			throw new Error("HTTP error, " + response.status);
+
+		// Request was successful
+	} catch (err){
+		console.error(err);
+	}
+	
+});
+
+
 const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
 
 // Updates the receipt section

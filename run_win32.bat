@@ -20,15 +20,17 @@ echo
 echo Once this is finished: Press any key to continue
 pause
 
+:install_pip
+	python -m pip install -U %~1 --exists-action a
+	if %ERRORLEVEL% neq 0 (
+	    echo An error occurred!
+	)
+	exit /b
 
 rem Install requirements
-python -m pip install -U pip
-python -m pip install flask --exists-action abort
-python -m pip install webview --exists-action abort
-if %ERRORLEVEL% neq 0 (
-    echo An error occurred!
-)
-
+install_pip flask
+install_pip flask_cors
+install_pip webview
 
 rem Run the main program initialisation file
 python "%~dp0init.py"
