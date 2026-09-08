@@ -42,7 +42,7 @@ PRODUCTS_DICT = [product.todict() for product in PRODUCTS];
 # Backend stuff
 def init_backend(PORT:int) -> int:
     template_dir = abspath("./templates/")
-    static_dir = abspath("./templates/src")
+    static_dir = abspath(f"{template_dir}/src")
 
     # Check if platform is DOS
     if (platform == "nt"):
