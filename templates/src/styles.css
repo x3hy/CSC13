@@ -79,7 +79,6 @@ button, .buttons {
 .buttons {
 	height:fit-content;
 	text-wrap: nowrap;
-	margin-left: var(--pad-norm);
 	width:fit-content;
 	display:inline;
 	button {
@@ -95,8 +94,7 @@ button:not(.buttons button):hover, .buttons:hover {
 }
 
 
-form.radio-form {
-	button {margin-left: var(--pad-norm)}
+.radio-form {
 	input {
 		-webkit-appearance: none;
 		border-radius: 0px;

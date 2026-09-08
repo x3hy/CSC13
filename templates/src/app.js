@@ -70,11 +70,12 @@ function update_receipt(){
 		buttons.appendChild(btn_inc);
 		buttons.appendChild(btn_val);
 		buttons.appendChild(btn_dec);
+
 		item.appendChild(hr);
 		item.appendChild(buttons);
 		item.appendChild(rest);
+
 		cart_list.appendChild(item);
-		
 	})
 
 	// Radio components
@@ -86,10 +87,10 @@ function update_receipt(){
 		const hr = document.createElement("hr");
 		const remove = document.createElement("button");
 		const rest = document.createElement("span");
-		remove.innerText = "remove";
+		remove.innerText = "Remove";
 
 		// Uses the content from the selected row in the radio
-		rest.innerHTML = q["element"]
+		rest.innerHTML = `<span class="sep"></span>` + q["element"]
 			.getElementsByClassName("title")[0].innerHTML;
 
 		// Append to the receipt
@@ -132,7 +133,7 @@ function update_cart(idx = 0, change = 0){
 }
 
 
-// GIves function to the product components on the page
+// Gives function to the product components on the page
 prod.querySelectorAll("article:not(:has(form))").forEach((el, i) => {
 	const quant_max = Number(el.getAttribute("data-max-amount"));
 	const btn_inc = el.getElementsByClassName("increase")[0];
