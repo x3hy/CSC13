@@ -34,6 +34,7 @@ function update_receipt(){
 
 		// Update component quantitys
 		q["element"].getElementsByClassName("total")[0].innerText = q["quant"];
+		if (q["quant"] == 0) return;
 
 		// Create rows in receipt
 		const item = document.createElement("p");
