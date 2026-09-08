@@ -30,7 +30,7 @@ const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
 function update_receipt(){
 	cart_list.innerHTML = "";
 	quants.forEach((q, i) => {
-		if (q["radio"] ||  q["quant"] == 0) return;
+		if (q["radio"]) return;
 
 		// Update component quantitys
 		q["element"].getElementsByClassName("total")[0].innerText = q["quant"];
