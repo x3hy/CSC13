@@ -6,7 +6,7 @@
 	--foreground-accent: #00BBFF;
 	--foreground-accent-alt: #0099CC;
 	--start-font: 1.3rem;
-	--grid-item-size: 350px;
+	--grid-item-size: 500px;
 	--pad-large: 20px;
 	--pad-norm: 15px;
 	--pad-small: 7px;
@@ -92,6 +92,25 @@ button:not(.buttons button):hover, .buttons:hover {
 	background: var(--foreground-accent-alt);
 	cursor: pointer;
 	scale: 0.95;
+}
+
+
+form.radio-form {
+	button {margin-left: var(--pad-norm)}
+	input {
+		-webkit-appearance: none;
+		border-radius: 0px;
+		background: var(--background);
+		border: solid var(--pad-border) var(--surface-alt);
+		width:15px;
+		height:15px;
+		transition: all 0.1s ease-in-out;
+	}
+
+	input:checked {
+		background: var(--foreground-accent);
+		border: solid var(--pad-border) var(--foreground-accent-alt);
+	}
 }
 
 #cart {

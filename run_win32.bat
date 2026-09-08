@@ -24,6 +24,7 @@ pause
 rem Install requirements
 python -m pip install -U pip
 python -m pip install flask --exists-action abort
+python -m pip install webview --exists-action abort
 if %ERRORLEVEL% neq 0 (
     echo An error occurred!
 )

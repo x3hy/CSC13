@@ -13,22 +13,43 @@ class exitcodes(Enum):
 
 
 class Product:
-    def __init__(self, title, desc, price, maxamount, image):
+    def __init__(self, desc, price, maxamount=-1, title="", image=""):
         self.title = title
         self.desc = desc
         self.price = price
         self.maxamount = maxamount
         self.image = image
 
+    def price(self):
+        return self.price
+
+
     # Return the item as a dict
-    def dict(self):
+    def todict(self):
         return {
             "title": self.title,
             "desc": self.desc,
+            "safe_name": self.desc.replace(" ", "_").lower(),
 
             # For compatability
             "description": self.desc,
             "price": self.price,
-            "maxamount": self.maxamount,
-            "image": str(self.image)
+            "max": self.maxamount,
+            "image": self.image,
+        }
+
+class Catagory:
+    def __init__(self, title, image="", contents=[]):
+        self.title = title;
+        self.contents = contents;
+        self.image = image;
+
+    def todict(self):
+        return {
+            "radio": 1,
+            "title": self.title,
+            "safe_name": self.title.replace(" ", "_").lower(),
+            "image": self.image,
+            "contents": [product.todict() for product in self.contents],
+            "price": sum([product.price for product in self.contents]) / len(self.contents)
         }

@@ -4,7 +4,7 @@ from lib.types import exitcodes as e
 def init_frontend(PORT:int) -> int:
     import webview
 
-    # All frontend files held in the "con" folder out of root
+    # All frontend files held in the "templates" folder out of root
     window = webview.create_window(title="Test",
         url=f"http://localhost:{PORT}")
 

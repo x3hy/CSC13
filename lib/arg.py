@@ -33,6 +33,7 @@ class args:
         allowed = [];
         for pair in self.allowed:
             allowed.append(pair[0]);
+
         return allowed;
 
     # Locate start of argument in argv
@@ -40,12 +41,14 @@ class args:
         for i, arg in enumerate(self.argv):
             if (arg.startswith(argname)):
                 return i;
+
         return -1;
 
     # Return value of a searched argument
     def getv(self, arg):
         index = self.index(arg)
         if (index == -1):
+
             return None;
 
         string = self.argv[index];
@@ -72,6 +75,7 @@ class args:
 
             if arg not in self.__allowed():
                 errors.append(arg)
+
         return errors;
 
     def no_args(self):

@@ -1,38 +1,54 @@
 from flask import Flask, render_template
 from logging import getLogger, ERROR
 from lib.types import exitcodes as e
-from lib.types import Product
+from lib.types import Product, Catagory
 from os.path import abspath
 from os import name as platform
 import click
 
+
+# Documentation in lib/types.py
 PRODUCTS = [
-    Product("Bathroom Tiles", "Tiles for bathroom floor", 2500, 1, "img/tiles.png"),
-    Product("Spa Bath", "Rich person shaped water containment device", 2500, 1, "img/spa.png"),
-    Product("Bathroom Tapware", "Taps knobs and all the rest of that fun stuff..", 2500, 1, "img/tapware.png"),
-    Product("TV Point A", "TV point, includes roof-mounted aerial", 250, 1, "img/aerial.png"),
-    Product("TV Point B", "TV point, includes satellite dish", 250, 1, "img/radar.png"),
-    Product("Heat Pump A", "4.5KW Heater", 2500, 1, "img/heatpump1.png"),
-    Product("Heat Pump B", "2.5KW Heater, Max quantity: 3", 1800, 3, "img/heatpump2.png"),
-    #Product(-1, "img/python.png"),
+
+    # Bathroom catagory:
+    Product("Tiles, spa bath, shower and tapware", 2500, 10, "Bathroom upgrade pack", "img/tapware.png"),
+
+    # Kitchen catagory radio
+    Catagory("Kitchen products", "img/python.png", [
+        Product("Upgrades units and worktop",      2500),
+        Product("As A plus induction hob",         2500),
+        Product("As A plus Deluxe appliance pack", 2500)
+    ]),
+
+    # Living room TV options
+    Catagory("TV Point", "img/python.png", [
+        Product("With roof-mounted aerial", 250),
+        Product("Withsatellite dish",      250)
+    ]),
+
+    # Living room heat pump options
+    Catagory("Heat Pump", "img/python.png", [
+        Product("4.5KW", 2500),
+        Product("2.5KW", 1800)
+    ]),
+
+    # Misc network/electrical upgrades
+    Product("Additional 1G electrical sockets", 40, -1, " Electrical Sockets", "img/python.png"),
+    Product("Up to 8 additional network points (already comes with 2)", 50, 8, "Network points", "img/python.png")
 ]
 
-PRODUCTS_DICT = [product.dict() for product in PRODUCTS];
-for index, product in enumerate(PRODUCTS_DICT):
-    product.id = index
+PRODUCTS_DICT = [product.todict() for product in PRODUCTS];
 
 # Backend stuff
 def init_backend(PORT:int) -> int:
     template_dir = abspath("./templates/")
     static_dir = abspath("./templates/src")
 
-
     # Check if platform is DOS
     if (platform == "nt"):
         print("Detected DOS platform")
         template_dir = abspath("templates")
         static_dir = abspath(f"{template_dir}/src")
-
 
     print("Using templates: " + template_dir)
     print("Using static: " + static_dir)
@@ -41,7 +57,6 @@ def init_backend(PORT:int) -> int:
 
     # Disable caching of templates
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-
 
     # Disable flask output
     log = getLogger("werkzeug");
@@ -52,11 +67,9 @@ def init_backend(PORT:int) -> int:
     def echo(text, file=None, nl=None, err=None, color=None, **styles):
         pass
 
-
     # Redirect logging to blank functions (disabling initial output)
     click.echo = echo
     click.secho = secho
-
 
     # Homepage magic
     @app.route("/")

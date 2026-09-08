@@ -15,7 +15,6 @@
 				<b class="item-count">0</b> Items, totaling <b class="price">0</b><span class="sep"></span><button id="cart-checkout">Checkout</button><button id="cart-clear">Clear Cart</button>
 			</summary>
 			<p><i>Click a row below to <b>remove</b> that item.</i></p>
-			<hr>
 			<div id="receipt">
 				No Items Selected
 			</div>
@@ -26,18 +25,33 @@
 	<div id="product-list">
 		{% if PRODUCTS is defined and PRODUCTS %}
 			{% for p in PRODUCTS %}
-				<article data-price="{{ p.price }}" data-max-amount="{{ p.maxamount }}" data-title="{{ p.title }}">
+				<article data-price="{{ p.price }}" data-max-amount="{{ p.max }}" data-title="{{ p.title }}" data-min-amount="{{ p.min }}">
+				<div class="other">
+					<h3>{{ p.title }}</h3>
+					<p><i>{{ p.description }}</i></p>
+
+				<!-- Radio component -->
+				{% if p.radio is defined %}
+					<form class="radio-form">
+					{% for i in p.contents %}
+					<label data-price="{{ i.price }}">
+							<input type="radio" name="{{ p.safe_name }}">
+							<span class="title"><span class="price">{{ i.price }}</span> {{ i.description }}</span>
+						</label><br>
+					{% endfor %}
+						<button class="clear">Clear selection</button>
+					</form>
+				{% else %}
+					<!-- Not a radio component -->
 					<header>
-						<div class="other">
-							<h3>{{ p.title }} <span class="price">{{ p.price }}</span></h3>
-							<p><i>{{ p.description }}</i></p>
-						</div>
 						<div class="buttons">
 							<button class="increase alt">+</button>
 							<span class="total">0</span>
 							<button class="decrease">-</button>
 						</div>
 					</header>
+				</div>
+				{% endif %}
 					<img src="{{ url_for('static', filename=p.image) }}", draggable="false", alt="{{ p.description }}" loading="lazy">
 				</article>
 			{% endfor %}
