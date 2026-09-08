@@ -111,7 +111,7 @@ function update_receipt(){
 	});
 
 	if (cart_list.innerHTML == "")
-		cart_list.innerHTML = "No Items Selected";
+		cart_list.innerHTML = "<hr>No Items Selected";
 }
 
 
