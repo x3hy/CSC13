@@ -26,22 +26,43 @@ cart_clear.addEventListener("click", () => {
 
 // Send quants to the server
 cart_checkout.addEventListener("click", async () => {
+	// Clean the json into a nice format:
+	// We only too send the amounts and
+	// the uuids of the products.
+	let out_json = [];
+	quants.forEach(q => {
+		if (q["quant"] != 0){
+			out_json.push({
+				"quant": q["quant"],
+				"uuid": q["uuid"]
+			})
+		}
+	});
+
 	try {
 		const resp = await fetch("http://127.0.0.1:8072/checkout", {
 			method: "POST",
 			headers: {
 				"Content-Type" : "application/json"
 			},
-		body: JSON.stringify(quants)});
+		body: JSON.stringify(out_json)});
 
 		if (!resp.ok)
 			throw new Error("HTTP error, " + response.status);
 
 		// Request was successful
+		//
+		// Move over to checkout page
+		localStorage.setItem("test", "123");
+
+		const link = document.createElement("a");
+		link.href = "/checkout_page";
+		document.body.appendChild(link);
+		link.click();
+
 	} catch (err){
 		console.error(err);
 	}
-	
 });
 
 
@@ -167,7 +188,8 @@ prod.querySelectorAll("article:not(:has(form))").forEach((el, i) => {
 		"price": parseFloat(el.getAttribute("data-price")),
 		"element": el,
 		"max": quant_max,
-		"radio": false
+		"radio": false,
+		"uuid": el.getAttribute("data-uuid")
 	});
 
 	// Hook events
@@ -200,6 +222,9 @@ prod.querySelectorAll(".radio-form").forEach((el, i) => {
 			// update the cart.
 			quants[quant_idx]["element"] = item;
 			quants[quant_idx]["quant"] = 1;
+
+			// Selected UUID
+			quants[quant_idx]["uuid"] = item.getAttribute("data-uuid");
 			quants[quant_idx]["price"] = parseFloat(item.getAttribute("data-price"));
 			update_cart();
 		});
@@ -212,6 +237,7 @@ prod.querySelectorAll(".radio-form").forEach((el, i) => {
 		// Uncheck all buttons and update the cart
 		radios.forEach(radio => radio.checked = false);
 		quants[quant_idx]["element"] = el;
+		quants[quant_idx]["uuid"] = "";
 		quants[quant_idx]["quant"] = 0;
 		update_cart();
 	});

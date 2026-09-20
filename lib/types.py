@@ -2,6 +2,7 @@
 Contains all unique types used accross this program
 """
 from enum import Enum, unique
+from uuid import uuid4 as uuid
 
 
 @unique
@@ -19,9 +20,20 @@ class Product:
         self.price = price
         self.maxamount = maxamount
         self.image = image
+        self.uuid = uuid().hex
+        self.quantity = 0;
 
     def price(self):
         return self.price
+
+    def uuid(self):
+        return self.uuid
+
+    def set_quantity(self, n: int):
+        self.quantity = n;
+
+    def get_quantity(self):
+        return self.quantity
 
 
     # Return the item as a dict
@@ -36,6 +48,7 @@ class Product:
             "price": self.price,
             "max": self.maxamount,
             "image": self.image,
+            "uuid" : self.uuid
         }
 
 class Catagory:
@@ -43,6 +56,13 @@ class Catagory:
         self.title = title;
         self.contents = contents;
         self.image = image;
+        self.uuid = uuid().hex
+
+    def contents(self):
+        return self.contents
+
+    def uuid(self):
+        return self.uuid
 
     def todict(self):
         return {
@@ -51,5 +71,6 @@ class Catagory:
             "safe_name": self.title.replace(" ", "_").lower(),
             "image": self.image,
             "contents": [product.todict() for product in self.contents],
-            "price": sum([product.price for product in self.contents]) / len(self.contents)
+            "price": sum([product.price for product in self.contents]) / len(self.contents),
+            "uuid": self.uuid
         }

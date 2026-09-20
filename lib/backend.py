@@ -1,10 +1,11 @@
-from flask import Flask, render_template
-from flask_cors import CORS
+from flask import Flask, render_template, request
+from lib.types import Product, Catagory
 from logging import getLogger, ERROR
 from lib.types import exitcodes as e
-from lib.types import Product, Catagory
-from os.path import abspath
 from os import name as platform
+from lib.frontend import window
+from flask_cors import CORS
+from os.path import abspath
 import click
 
 
@@ -39,6 +40,7 @@ PRODUCTS = [
 ]
 
 PRODUCTS_DICT = [product.todict() for product in PRODUCTS];
+ORDERS_DICT = []
 
 # Backend stuff
 def init_backend(PORT:int) -> int:
@@ -55,7 +57,7 @@ def init_backend(PORT:int) -> int:
     print("Using static: " + static_dir)
 
     app = Flask(__name__, template_folder = template_dir, static_folder = static_dir)
-    CORS = CORS(app);
+    CORS(app);
 
     # Disable caching of templates
     app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -80,14 +82,35 @@ def init_backend(PORT:int) -> int:
         print(PRODUCTS_DICT)
         return render_template("index.html", PRODUCTS = PRODUCTS_DICT)
 
+    @app.route("/checkout_page")
+    def checkoutpage():
+        print("Connection to checkout page");
+        return render_template("checkout.html");
+
     @app.route('/checkout', methods = ['POST'])
     def checkout():
+        global window
         print("checkout");
+
+        # prints out UUIDS
         if (request.method == "POST"):
-            print(request.form);
+            print(request.get_json());
+
+            for product in request.get_json():
+                for item in PRODUCTS:
+                    if type(item) is Catagory:
+                        for nested in item.contents:
+                            print(nested.uuid);
+                    print(item.uuid);
+
+            window.load_url(f"http://localhost:{PORT}/checkout_page")
+            return "OK", 200
+
         else:
+
             # Invalid method
             return "Invalid Method", 405
+
 
     print("Started backend server");
     app.run(port=PORT)
