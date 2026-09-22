@@ -47,6 +47,9 @@ cart_checkout.addEventListener("click", async () => {
 			},
 		body: JSON.stringify(out_json)});
 
+		pywebview.api.change_page('checkout_page');
+		//document.body.innerHTML = pywebview.api.port();
+
 		if (!resp.ok)
 			throw new Error("HTTP error, " + response.status);
 
@@ -55,14 +58,10 @@ cart_checkout.addEventListener("click", async () => {
 		// Move over to checkout page
 		localStorage.setItem("test", "123");
 
-		const link = document.createElement("a");
-		link.href = "/checkout_page";
-		document.body.appendChild(link);
-		link.click();
-
 	} catch (err){
 		console.error(err);
 	}
+
 });
 
 

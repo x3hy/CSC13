@@ -3,7 +3,6 @@ from lib.types import Product, Catagory
 from logging import getLogger, ERROR
 from lib.types import exitcodes as e
 from os import name as platform
-from lib.frontend import window
 from flask_cors import CORS
 from os.path import abspath
 import click
@@ -44,7 +43,7 @@ ORDERS_DICT = []
 
 # Backend stuff
 def init_backend(PORT:int) -> int:
-    template_dir = abspath("./templates/")
+    template_dir = abspath("./pagedata/")
     static_dir = abspath(f"{template_dir}/src")
 
     # Check if platform is DOS
@@ -65,6 +64,7 @@ def init_backend(PORT:int) -> int:
     # Disable flask output
     log = getLogger("werkzeug");
     log .setLevel(ERROR);
+
     def secho(text, file=None, nl=None, err=None, color=None, **styles):
         pass
 
@@ -89,7 +89,6 @@ def init_backend(PORT:int) -> int:
 
     @app.route('/checkout', methods = ['POST'])
     def checkout():
-        global window
         print("checkout");
 
         # prints out UUIDS
@@ -100,10 +99,9 @@ def init_backend(PORT:int) -> int:
                 for item in PRODUCTS:
                     if type(item) is Catagory:
                         for nested in item.contents:
-                            print(nested.uuid);
-                    print(item.uuid);
+                           if nested.uuid in request.get_json():
+                                print(nested.uuid);
 
-            window.load_url(f"http://localhost:{PORT}/checkout_page")
             return "OK", 200
 
         else:
