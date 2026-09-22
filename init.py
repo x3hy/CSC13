@@ -37,8 +37,6 @@ if (arg.hasv ("--port")):
     APP_PORT = int(arg.getv("--port"));
 
 
-
-
 FRONTEND: bool = False
 if (arg.hasv ("--frontend-only")):
     FRONTEND = True
@@ -49,16 +47,14 @@ if (arg.hasv ("--backend-only")):
     BACKEND = True
 
 
-# Run the main app
 if __name__ == "__main__":
+    # Check for port availability
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.settimeout(2.0);
         if (s.connect_ex(("localhost", APP_PORT)) == 0):
-            print(f"Port {APP_PORT} already in use..")
-
             arg.help()
-            #exit (e.EXIT_FALIURE.value)
-        else:
-            print(f"Port {APP_PORT} is available");
-    rc: int = main (APP_PORT, BACKEND, FRONTEND);
-    exit (rc)
+            print(f"Port {APP_PORT} already in use..")
+            exit (e.EXIT_FALIURE.value)
+
+    # Run the main app
+    exit(main(APP_PORT, BACKEND, FRONTEND))
