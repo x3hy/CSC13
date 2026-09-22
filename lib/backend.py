@@ -49,7 +49,7 @@ def init_backend(PORT:int) -> int:
     # Check if platform is DOS
     if (platform == "nt"):
         print("Detected DOS platform")
-        template_dir = abspath("templates")
+        template_dir = abspath("pagedata")
         static_dir = abspath(f"{template_dir}/src")
 
     print("Using templates: " + template_dir)
